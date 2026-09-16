@@ -2,12 +2,12 @@
 title: Ringsjön
 ---
 
-:::{.calout-important}
+:::{.callout-important}
 
 This page is still under construction. Figures and information will follow here. 
 :::
 
 ## Water level 
 
-```{html}
-<iframe src="../fig/html/waterlevel_RIN.html" width="80%", style="border:none;"></iframe>
+```{=html}
+<iframe src="../fig/html/waterlevel_RIN.html" width="80%"></iframe>
