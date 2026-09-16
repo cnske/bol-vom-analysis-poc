@@ -5,9 +5,15 @@ project:
 website:
   title: "Data dashboard"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
+      - href: pages/bol.qmd
+        text: Bolmen
+      - href: pages/vom.qmd
+        text: Vomb
+      - href: pages/rin.qmd
+        text: Ringjön
       - href: pages/about.qmd
         text: About
 
