@@ -9,5 +9,9 @@ This page is still under construction. Figures and information will follow here.
 
 ## Water level 
 
+:::{#fig-rin-waterlevel}
 ```{=html}
-<iframe src="../fig/html/waterlevel_RIN.html" width="80%"></iframe>
+<iframe src="../fig/html/waterlevel_RIN.html" width="80%" height="500px"></iframe>
+
+Daily water-level at recorded at [GPS LOCATION]().
+:::
