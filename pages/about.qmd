@@ -1,0 +1,5 @@
+ ---
+ title: "About"
+ ---
+ 
+ This page was created in effort to make the monitoring data collected more accessiable and presentable to a wider audience in a simple and straight forward way.

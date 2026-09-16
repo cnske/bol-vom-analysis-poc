@@ -1,0 +1,12 @@
+---
+title: Lake Data Portal
+---
+
+:::{.callout-warning}
+## Under Construction
+
+This interactive data portal and automated datapipeline are currently under active development.
+:::
+
+Welcome!
+This portal automatically ingests, processes, and displays environemntal monitoring data from Lake Bolmen and Lake Vomb.
