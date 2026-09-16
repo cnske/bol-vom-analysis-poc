@@ -9,4 +9,4 @@ This interactive data portal and automated datapipeline are currently under acti
 :::
 
 Welcome!
-This portal automatically ingests, processes, and displays environemntal monitoring data from Lake Bolmen and Lake Vomb.
+This portal automatically ingests, processes, and displays environemntal monitoring data from [Lake Bolmen](/pages/bol.qmd), [Lake Vomb](/pages/vom.qmd) and the [Ring Lakes](/pages/rin.qmd).
