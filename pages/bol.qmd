@@ -6,3 +6,15 @@ title: Bolmen
 
 This page is still under construction. Figures and information will follow here. 
 :::
+
+## About Bolmen
+Here should be some basic information about the lake. 
+{{< lipsum 1 >}}
+
+## Waterlevel
+
+:::{#fig-bol-waterlevel}
+{{< placeholder >}}
+
+Waterlevel of Bolmen recorded at [GPS Location].
+:::

@@ -1,8 +1,12 @@
-name: Render and Deploy Quarto Website
+name: Execute Pipeline and deploy Quarto Site
 
 on:
+  schedule:
+    - cron: "0 2 15 * *" # CRON syntax can be found here
+
   push:
-    branches: [alpha01, master]
+    branches: [master] # alpha01
+
   workflow_dispatch:
 
 # Grant permissions required to deploy to GitHub Pages
@@ -16,14 +20,31 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build-deploy:
+  pipeline-and-deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyter pandas plotly papermill
+          # With requirements.txt use 'if [-f requirements.txt]; then pip install -r requirements.txt'
+
+      - name: Run Analysis Notebook
+        run: |
+          papermill src/notebooks/analysis_rin.ipynb -k python3
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
