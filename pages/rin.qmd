@@ -31,6 +31,8 @@ Here will be some basic information about the lake.
 {{< include ../fig/html/meteo_current_rin_caption.md >}}
 
 :::
+
+:::
 :::
 
 ## Water level 
