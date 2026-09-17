@@ -1,0 +1,1 @@
+Average climate at Hörby A (53530)
