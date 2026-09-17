@@ -11,7 +11,7 @@ This page is still under construction. Figures and information will follow here.
 Here will be some basic information about the lake.
 {{< lipsum 1 >}}
 
-:::{sytle="width: 95%; margin:0 auto;"}
+:::{style="width: 95%; margin:0 auto;"}
 :::{layout-ncol=2}
 
 :::{#fig-rin-meteo-avg}
