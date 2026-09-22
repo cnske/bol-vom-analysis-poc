@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Data dashboard"
+  navbar:
+    right:
+      - href: index.qmd
+        text: Home
+      - href: pages/bol.qmd
+        text: Bolmen
+      - href: pages/vom.qmd
+        text: Vomb
+      - href: pages/rin.qmd
+        text: Ringsjön
+      - href: pages/about.qmd
+        text: About
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

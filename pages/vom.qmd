@@ -1,0 +1,12 @@
+---
+title: Vomb
+---
+
+:::{.allout-important}
+
+This page is still under construction. Figures and information will follow here. 
+:::
+
+## About Vomb
+Here will be some basic information about the lake.
+{{< lipsum 1 >}}

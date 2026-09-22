@@ -1,0 +1,47 @@
+---
+title: Ringsjön
+---
+
+:::{.callout-important}
+
+This page is still under construction. Figures and information will follow here. 
+:::
+
+## About Ringsjön
+Here will be some basic information about the lake.
+{{< lipsum 1 >}}
+
+:::{style="width: 95%; margin:0 auto;"}
+:::{layout-ncol=2}
+
+:::{#fig-rin-meteo-avg}
+```{=html}
+<iframe src="../fig/html/meteo_avg_rin.html" width="100%" height="500px"></iframe> 
+```
+
+{{< include ../fig/html/meteo_avg_rin_caption.md >}}
+
+:::
+
+:::{#fig-rin-meteo-current}
+```{=html}
+<iframe src="../fig/html/meteo_current_rin.html" width="100%" height="500px"></iframe> 
+```
+
+{{< include ../fig/html/meteo_current_rin_caption.md >}}
+
+:::
+
+:::
+:::
+
+## Water level 
+
+:::{#fig-rin-waterlevel}
+```{=html}
+<iframe src="../fig/html/waterlevel_rin.html" width="95%" height="500px"></iframe>
+```
+
+{{< include ../fig/html/waterlevel_rin_caption.md >}}
+
+::: 

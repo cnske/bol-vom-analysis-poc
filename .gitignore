@@ -1,0 +1,22 @@
+# The .gitignore file is used to tell which file types folders should not be version controlled
+
+# System Files
+*.DS_Store
+thumbs.db
+
+# Other files
+*.xls
+*.xlsx
+*.csv
+*.xml
+*.mat
+*.rsqmb
+
+# Specific files
+testing.ipynb
+
+# Folders 
+data/**
+fig/png/**
+
+**/__pycache__

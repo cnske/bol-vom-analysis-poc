@@ -1,0 +1,16 @@
+---
+title: Lake Data Portal
+---
+
+:::{.callout-warning}
+## Under Construction
+
+This interactive data portal and automated datapipeline are currently under active development.
+:::
+
+Welcome!
+
+This portal automatically ingests, processes, and displays environemntal monitoring data of the following lakes:
+- [Bolmen](/pages/bol.qmd) 
+- [Vomb](/pages/vom.qmd)
+- [Ringsjön](/pages/rin.qmd).
