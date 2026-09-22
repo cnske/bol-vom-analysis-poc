@@ -16,7 +16,6 @@ thumbs.db
 testing.ipynb
 
 # Folders 
-data/**
 fig/png/**
 
 **/__pycache__
