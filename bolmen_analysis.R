@@ -390,20 +390,20 @@ ggsave("testplot.png", dpi = "retina")
 #subset for 10 years each
 #sum of days with rain
 windows()
-ggplot(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ), 
+total <- nrow(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ))
+ggplot(data=subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ), 
        aes(x=Precipitation_d )  )+
   geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
   theme_bw()+
   labs(y="day count", x="Amount of Precipitation in mm", title="Distribution of daily rain?!")+
-  annotate("label", x=Inf,y=Inf, label=paste("some text", max(df30yDaily$Precipitation_d)), vjust=3, hjust=2)+
-  stat_count(binwidth = 1, 
-             geom = 'text', 
-             color = 'white', 
-             aes(label = after_stat(count)),
-             position = position_stack(vjust = 0.5))
+  annotate("label", x=Inf,y=Inf, label=paste("some text", nrow(total)), vjust=3, hjust=2)
+ 
 
-after_stat(count(df30yDaily$Precipitation_d))
 
+
+label=paste("some text", parse(nrow(data)))
+total <- nrow(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ))
+paste("N =", nrow(.))
 test <- subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) )
 ?annotate
 stat_bin(geom = "text", aes(label = ..count..))

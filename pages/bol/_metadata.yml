@@ -10,5 +10,7 @@ sidebar:
       contents:
         - href: bol-climate.qmd
           text: "Climate"
-        - href: bol-climate-extreme.qmd
-          text: Climate extremes
+    - section: "Hydrology"
+      contents:
+        - href: bol-hydro.qmd
+          text: "Hydrology"

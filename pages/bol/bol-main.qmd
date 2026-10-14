@@ -71,14 +71,6 @@ Current Water Level
 :::
 :::
 
-## Waterlevel
-
-:::{#fig-bol-waterlevel}
-{{< placeholder >}}
-
-Waterlevel timeseries of Bolmen recorded at [GPS Location].
-:::
-
 
 ## Water quality
 
