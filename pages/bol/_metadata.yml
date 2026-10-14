@@ -1,0 +1,14 @@
+sidebar:
+  title: "Bolmen"
+  style: "docked"
+  search: true
+  contents:
+    - href: bol-main.qmd
+      text: "Bolmen"
+
+    - section: "Climate"
+      contents:
+        - href: bol-climate.qmd
+          text: "Climate"
+        - href: bol-climate-extreme.qmd
+          text: Climate extremes

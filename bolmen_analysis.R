@@ -395,7 +395,14 @@ ggplot(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ),
   geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
   theme_bw()+
   labs(y="day count", x="Amount of Precipitation in mm", title="Distribution of daily rain?!")+
-  annotate("text", x=40, y=400, label="some text")
+  annotate("label", x=Inf,y=Inf, label=paste("some text", max(df30yDaily$Precipitation_d)), vjust=3, hjust=2)+
+  stat_count(binwidth = 1, 
+             geom = 'text', 
+             color = 'white', 
+             aes(label = after_stat(count)),
+             position = position_stack(vjust = 0.5))
+
+after_stat(count(df30yDaily$Precipitation_d))
 
 test <- subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) )
 ?annotate

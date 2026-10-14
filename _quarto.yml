@@ -8,11 +8,11 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - href: pages/bol.qmd
+      - href: pages/bol/bol-main.qmd
         text: Bolmen
-      - href: pages/vom.qmd
+      - href: pages/vom/vom-main.qmd
         text: Vomb
-      - href: pages/rin.qmd
+      - href: pages/rin/rin-main.qmd
         text: Ringsjön
       - href: pages/about.qmd
         text: About
