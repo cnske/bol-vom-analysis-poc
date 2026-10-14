@@ -13,6 +13,4 @@ Welcome!
 This portal automatically ingests, processes, and displays environemntal monitoring data of the following lakes:
 - [Bolmen](/pages/bol/bol-main.qmd) 
 - [Vomb](/pages/vom/vom-main.qmd)
-<!--
 - [Ringsjön](/pages/rin/rin-main.qmd).
--->

@@ -391,12 +391,13 @@ ggsave("testplot.png", dpi = "retina")
 #sum of days with rain
 windows()
 total <- nrow(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ))
+norain <- nrow(subset(df30yDaily, Precipitation_d=0 & Date >= (max(Date)-years(10)) ))
 ggplot(data=subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ), 
        aes(x=Precipitation_d )  )+
   geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
   theme_bw()+
   labs(y="day count", x="Amount of Precipitation in mm", title="Distribution of daily rain?!")+
-  annotate("label", x=Inf,y=Inf, label=paste("some text", nrow(total)), vjust=3, hjust=2)
+  annotate("label", x=Inf,y=Inf, label=paste("days with rain: ",total,"\n days without rain: ",norain), vjust=2, hjust=2)
  
 
 

@@ -19,7 +19,7 @@ This part should contain:
     - mean depth
 - a (interactive) map with sampling locations, maybe as GoogleEarth Link
 
-<iframe width="780" height="500" src="https://forskningsstationbolmen.se/forska-hos-oss/miljoovervakning-environmental-monitoring/" style="width: 100%; height: 1200px; position: absolute; top: -380px; left: 0; border: none;" scrolling="no"></iframe>
+<iframe width="780" height="500" src="https://forskningsstationbolmen.se/forska-hos-oss/miljoovervakning-environmental-monitoring/" ></iframe>
 
 - some general information like e.g. imporant industry
 
