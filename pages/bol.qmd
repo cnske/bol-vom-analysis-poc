@@ -1,5 +1,6 @@
 ---
 title: Bolmen
+bibliography: references.bib
 ---
 
 :::{.calout-important}
@@ -9,12 +10,117 @@ This page is still under construction. Figures and information will follow here.
 
 ## About Bolmen
 Here should be some basic information about the lake. 
-{{< lipsum 1 >}}
+This part should contain: 
+- basic information like 
+    - size
+    - retention time
+    - max. depth
+    - mean depth
+- a (interactive) map with sampling locations, maybe as GoogleEarth Link
+<iframe width="780" height="500" src="https://earth.google.com/earth/d/1ROEMcDKg4IIzfD9Q_Gn4rN5BToJcaGAw?usp=sharing"></iframe>
+- some general information like e.g. imporant industry
+
+
+## Current Conditions
+
+This part should contain the current conditions, which may actually be update on a more regular base, e.g. every hour. The visualization should be simple and only show numbers and text, to graphs. 
+
+:::{style="width: 95%; margin:0 auto;"}
+:::{layout-ncol=6}
+
+
+:::{#fig-bol-curr-AT}
+{{< placeholder >}}
+Current Air Temperature
+:::
+
+:::{#fig-bol-curr-P}
+{{< placeholder >}}
+Current Precipitation
+:::
+
+:::{#fig-bol-curr-WSWDir}
+{{< placeholder >}}
+Current Windspeed and Winddirection
+:::
+
+:::{#fig-bol-curr-AP}
+{{< placeholder >}}
+Current Atmospheric Pressure
+:::
+
+:::{#fig-bol-curr-WT}
+{{< placeholder >}}
+Current Water Temperature
+:::
+
+:::{#fig-bol-curr-WL0}
+{{< placeholder >}}
+Current Water Level
+:::
+
+:::
+:::
+
+## Climate 
+Bolmen is located in the warm-summer humid continental climate zone (Dfb) according to the Köppen-Geiger climate classification [@Jerue]. 
+
+:::{#fig-bol-avg-clim}
+{{< placeholder >}}
+Average climate at Bolmen, recorded at station XYZ.
+:::
+
 
 ## Waterlevel
 
 :::{#fig-bol-waterlevel}
 {{< placeholder >}}
 
-Waterlevel of Bolmen recorded at [GPS Location].
+Waterlevel timeseries of Bolmen recorded at [GPS Location].
+:::
+
+
+## Water quality
+
+### Epilimnion
+
+:::
+{{< placeholder >}}
+Absorbance measurements of the epilimnion. 
+:::
+
+
+### Profile 
+:::{layout=[[45,45], [45,45], [-22.5, 45, -22.5]]}
+
+:::{#fig-bol-profileNW}
+{{< placeholder >}}
+NW
+:::
+
+:::{#fig-bol-profileNE}
+{{< placeholder >}}
+NE
+:::
+
+:::{#fig-bol-profileW}
+{{< placeholder >}}
+W
+:::
+
+:::{#fig-bol-profileE}
+{{< placeholder >}}
+E
+:::
+
+:::{#fig-bol-profileS}
+{{< placeholder >}}
+S
+:::
+
+:::
+
+
+## References 
+:::{#refs}
 :::

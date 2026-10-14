@@ -11,6 +11,7 @@ thumbs.db
 *.xml
 *.mat
 *.rsqmb
+*.png
 
 # Specific files
 testing.ipynb
