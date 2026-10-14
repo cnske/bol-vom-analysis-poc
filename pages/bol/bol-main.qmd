@@ -71,10 +71,20 @@ Current Water Level
 :::
 :::
 
+## Climate 
+Bolmen is located in the warm-summer humid continental climate zone (Dfb) according to the Köppen-Geiger climate classification [@Jerue]. 
+
+:::{#fig-bol-avg-clim}
+{{< placeholder >}}
+Average climate at Bolmen, recorded at station XYZ.
+:::
+
 
 ## Water quality
 
 ### Epilimnion
+
+The current sampling for the epilimnion consist of analysis of the absorbance at differnt wavelength. 
 
 :::{#fig-bol-epi-abs}
 {{< placeholder >}}
@@ -82,8 +92,8 @@ Absorbance measurements of the epilimnion.
 
 :::
 
-
 ### Profile 
+
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW}
@@ -113,7 +123,24 @@ S
 
 :::
 
+## Hydrology
 
-## References 
+### Water level
+
+:::{#fig-bol-waterlevel}
+{{< placeholder >}}
+
+Waterlevel timeseries of Bolmen recorded at [GPS Location].
+:::
+
+### Tributaries
+
+:::{#fig-bol-tributaryflow}
+{{< placeholder >}}
+
+Timeseries plot of the tributary discharge to Bolmen recorded at [GPS Location].
+:::
+
+## References {.unlisted}
 :::{#refs}
 :::
