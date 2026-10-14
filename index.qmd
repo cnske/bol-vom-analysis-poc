@@ -11,6 +11,8 @@ This interactive data portal and automated datapipeline are currently under acti
 Welcome!
 
 This portal automatically ingests, processes, and displays environemntal monitoring data of the following lakes:
-- [Bolmen](/pages/bol.qmd) 
-- [Vomb](/pages/vom.qmd)
-- [Ringsjön](/pages/rin.qmd).
+- [Bolmen](/pages/bol/bol-main.qmd) 
+- [Vomb](/pages/vom/vom-main.qmd)
+<!--
+- [Ringsjön](/pages/rin/rin-main.qmd).
+-->
