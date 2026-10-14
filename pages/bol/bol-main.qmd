@@ -1,5 +1,5 @@
 ---
-title: Bolmen
+title: "Bolmen"
 bibliography: ../references.bib
 ---
 

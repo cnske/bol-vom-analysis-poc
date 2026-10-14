@@ -7,10 +7,12 @@ sidebar:
       text: "Bolmen"
 
     - section: "Climate"
+      href: bol-climate.qmd
       contents:
-        - href: bol-climate.qmd
-          text: "Climate"
+        - text: "Climate"
+          href: bol-climate.qmd
     - section: "Hydrology"
+      href: bol-hydro.qmd
       contents:
-        - href: bol-hydro.qmd
-          text: "Hydrology"
+        - text: "Hydrology"
+          href: bol-hydro.qmd

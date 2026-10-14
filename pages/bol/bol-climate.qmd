@@ -1,5 +1,5 @@
 ---
-title: Climate
+title: "Bolmen - Climate"
 bibliography: ../references.bib
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Hydrology
+title: "Bolmen - Hydrology"
 bibliography: ../references.bib
 ---
 
