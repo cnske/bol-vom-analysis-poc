@@ -110,59 +110,70 @@ Precipitation_distribution(12, "metobs_bol.parquet", "Nederbördsmängd")
 
 ###### temperature_distribution() ###### 
 
+#parameters:    a = number of years for each plot (num)
+#               filename = name of the raw parquet file (chr)
+#               parameter = name of Temperature column in parquet, e.g. "Lufttemperatur" (chr)
 
-#start of function
-#needed for function: raw data (dfraw), parameter ("Lufttemperatur"), window lenght (x years for one plot)
-#raw data only from one station!
+#raw data only from one station   !!!
 
-dfraw <- arrow::read_parquet("metobs_bol.parquet", col_select = c(TimeStamp,StationName, ParameterName, Unit, Value))
-dfraw$ParameterName <- as.factor(dfraw$ParameterName)
-dfraw$Unit <- as.factor(dfraw$Unit)
-dfraw$Date <- as.Date((substring(dfraw$TimeStamp, 0, 10)), format="%Y-%m-%d")
+Temperature_distribution <- function(a, filename, parameter) 
+{
+  dfraw <- arrow::read_parquet(filename, col_select = c(TimeStamp,StationName, ParameterName, Unit, Value))
+  dfraw$ParameterName <- as.factor(dfraw$ParameterName)
+  dfraw$Unit <- as.factor(dfraw$Unit)
+  dfraw$Date <- as.Date((substring(dfraw$TimeStamp, 0, 10)), format="%Y-%m-%d")
+  
+  lastYear <- floor_date(max(dfraw$Date), unit="year")
+  df30y <- subset(dfraw, Date < lastYear & Date >= (lastYear-years(30)) & StationName =="Ljungby A") #!!!
+  StationName <- str_c(df30y[1, "StationName"])
+  
+  DF <- setNames(aggregate(Value~Date,(subset(df30y, ParameterName==parameter)), 
+                           mean, na.rm=TRUE, na.action=NULL), c("Date", "Temperatur_d"))
+  t1 <- 0 #start at year 0
+  
+  
+  while(t1 < 30) {
+    dfT <- subset(DF, Date >= (min(Date)+years(t1))   &   Date < (min(Date)+years(t1+a))  )
+    
+    Tmean <- round(mean(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+    Tmax <- round(max(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+    Tmin <- round(min(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+    
+    ggplot(dfT, aes(x=Temperatur_d )  )+
+      geom_histogram(binwidth=1, fill="grey", center=0)+
+      theme_bw()+
+      labs(y="day count", x="daily air temperature in °C", 
+           title="Distribution of Daily Temperature", 
+           subtitle=paste("between", format(min(dfT$Date), format="%d.%m.%Y"), 
+                          "and", format(max(dfT$Date), format="%d.%m.%Y"),
+                          "\nat weather station", StationName) )+
+      geom_vline(xintercept=Tmean, lty=2)+
+      annotate("text", x=Tmean, y=230, label=paste("mean:", Tmean, "°C"), 
+               hjust=1.1, vjust=-1)+
+      geom_vline(xintercept=Tmax, lty=2, color="red")+
+      annotate("text", x=Tmax, y=230, label=paste("max:", Tmax, "°C"), color="red", 
+               hjust=1.1, vjust=-1)+
+      geom_vline(xintercept=Tmin, lty=2, color="blue")+
+      annotate("text", x=Tmin, y=230, label=paste("min:", Tmin, "°C"),color="blue", 
+               hjust=-0.1, vjust=-1)+
+      theme(plot.title=element_text(face="bold"), aspect.ratio=1)+
+      coord_cartesian(xlim=c(-23, 30), ylim=c(0, 250))
+    
+    ggsave(filename = str_c("histogram_T_t", t1,"_", format(Sys.time(), "%Y-%m-%d"), ".png"), dpi = "retina")
+    
+    t1 <- t1 + a       #change running index
+    
+  }
+  
+  return(t1)
+  
+}
 
-lastYear <- floor_date(max(dfraw$Date), unit="year")
-df30y <- subset(dfraw, Date < lastYear & Date >= (lastYear-years(30)) & StationName =="Ljungby A") #!!!
-StationName <- str_c(df30y[1, "StationName"])
+a = 10
+filename="metobs_bol.parquet"
+parameter="Lufttemperatur"
 
-DF <- setNames(aggregate(Value~Date,(subset(df30y, ParameterName=="Lufttemperatur")), 
-                         mean, na.rm=TRUE, na.action=NULL), c("Date", "Temperatur_d"))
-t1 <- 0 #start at year 0
-
-#beginning of loop, set a (windowlength, how many years in one plot)
-
-dfT <- subset(DF, Date >= (min(Date)+years(t1))   &   Date < (min(Date)+years(t1+a))  )
-
-Tmean <- round(mean(dfT$Temperatur_d, na.rm=TRUE), digits=1)
-Tmax <- round(max(dfT$Temperatur_d, na.rm=TRUE), digits=1)
-Tmin <- round(min(dfT$Temperatur_d, na.rm=TRUE), digits=1)
-
-
-windows()
-ggplot(dfT, aes(x=Temperatur_d )  )+
-  geom_histogram(binwidth=1, fill="grey", center=0)+
-  theme_bw()+
-  labs(y="day count", x="daily air temperature in °C", 
-       title="Distribution of Daily Temperature", 
-       subtitle=paste("between", format(min(dfT$Date), format="%d.%m.%Y"), 
-                      "and", format(max(dfT$Date), format="%d.%m.%Y"),
-                      "\nat weather station", StationName) )+
-  geom_vline(xintercept=Tmean, lty=2)+
-  annotate("text", x=Tmean, y=230, label=paste("mean:", Tmean, "°C"), 
-           hjust=1.1, vjust=-1)+
-  geom_vline(xintercept=Tmax, lty=2, color="red")+
-  annotate("text", x=Tmax, y=230, label=paste("max:", Tmax, "°C"), color="red", 
-           hjust=1.1, vjust=-1)+
-  geom_vline(xintercept=Tmin, lty=2, color="blue")+
-  annotate("text", x=Tmin, y=230, label=paste("min:", Tmin, "°C"),color="blue", 
-           hjust=-0.1, vjust=-1)+
-  theme(plot.title=element_text(face="bold"), aspect.ratio=1)+
-  coord_cartesian(xlim=c(-23, 30), ylim=c(0, 250))
-
-ggsave(filename = str_c("histogram_T_t", t1, ".png"), dpi = "retina")
-
-t1 <- t1 + a       #change running index
-
-#end of loop
+Temperature_distribution(10, "metobs_bol.parquet", "Lufttemperatur")
 
 
 ###### depth_measurements() ###### 
