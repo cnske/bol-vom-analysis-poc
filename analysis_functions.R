@@ -32,17 +32,15 @@ df <- daily %>% reduce(full_join, by='Date')
 
 ###### precipitation_distribution() ###### 
 
-#start of function
-#needed for function: raw data (dfraw), parameter ("Nederbördsmängd"), window lenght (x years for one plot)
-#raw data only from one station! add stationname in subtitle
 
-a = 4
-filename="metobs_bol.parquet"
-parameter="Nederbördsmängd"
+#parameters:    a = number of years for each plot (num)
+#               filename = name of the raw parquet file (chr)
+#               parameter = name of Precipitation column in parquet, e.g. "Nederbördsmängd" (chr)
 
+#raw data only from one station   !!!
 
 
-Precipitation_distribution() <- function(a, filename, parameter)
+Precipitation_distribution <- function(a, filename, parameter)
 {
   dfraw <- arrow::read_parquet(filename, col_select = c(TimeStamp,StationName, ParameterName, Unit, Value))
   dfraw$ParameterName <- as.factor(dfraw$ParameterName)
@@ -92,7 +90,7 @@ Precipitation_distribution() <- function(a, filename, parameter)
       coord_cartesian(xlim=c(0, xmax))+
       scale_y_continuous(trans = scales::pseudo_log_trans(base = 10))
     
-    ggsave(filename = str_c("histogram_P_t", t1, ".png"), dpi = "retina")
+    ggsave(filename = str_c("histogram_P_t", t1,"_", format(Sys.time(), "%Y-%m-%d"), ".png"), dpi = "retina")
     
     
     t1 <- t1 + a       #change running index
@@ -102,7 +100,12 @@ Precipitation_distribution() <- function(a, filename, parameter)
   
 }      #end of function
 
+ #trying the function
+a = 12
+filename="metobs_bol.parquet"
+parameter="Nederbördsmängd"
 
+Precipitation_distribution(12, "metobs_bol.parquet", "Nederbördsmängd")
 
 
 ###### temperature_distribution() ###### 

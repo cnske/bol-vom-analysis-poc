@@ -17,6 +17,19 @@ website:
       - href: pages/about.qmd
         text: About
 
+  sidebar:
+    - id: "Bolmen"
+      title: "Bolmen"
+      style: "docked"
+      search: true
+      contents:
+        - href: pages/bol/bol-main.qmd
+          text: "Bolmen"
+        - href: pages/bol/bol-climate.qmd
+          text: "Climate"
+        - href: pages/bol/bol-hydro.qmd
+          text: "Hydrology"
+
 format:
   html:
     theme: cosmo
