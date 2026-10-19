@@ -3,7 +3,9 @@ title: "Bolmen - Hydrology"
 bibliography: ../references.bib
 ---
 
-## Waterlevel
+## Hydrology
+
+### Water level
 
 :::{#fig-bol-waterlevel}
 {{< placeholder >}}
@@ -11,10 +13,10 @@ bibliography: ../references.bib
 Waterlevel timeseries of Bolmen recorded at [GPS Location].
 :::
 
-## Tributaries
+### Tributaries
 
 :::{#fig-bol-tributaryflow}
 {{< placeholder >}}
 
-Timeseries plot of the tributary discharge to Bolmen [GPS Location].
+Timeseries plot of the tributary discharge to Bolmen recorded at [GPS Location].
 :::

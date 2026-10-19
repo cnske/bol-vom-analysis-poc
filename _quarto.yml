@@ -29,6 +29,8 @@ website:
           text: "Climate"
         - href: pages/bol/bol-hydro.qmd
           text: "Hydrology"
+        - href: pages/bol/bol-waterquality.qmd.qmd
+          text: "Waterquality"
 
 format:
   html:

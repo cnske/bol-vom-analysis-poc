@@ -1,0 +1,47 @@
+---
+title: "Bolmen - Waterquality"
+bibliography: ../references.bib
+---
+
+## Water quality
+
+### Epilimnion
+
+The current sampling for the epilimnion consist of analysis of the absorbance at differnt wavelength. 
+
+:::{#fig-bol-epi-abs}
+{{< placeholder >}}
+Absorbance measurements of the epilimnion. 
+
+:::
+
+### Profile 
+
+:::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
+
+:::{#fig-bol-profileNW}
+{{< placeholder >}}
+NW
+:::
+
+:::{#fig-bol-profileNE}
+{{< placeholder >}}
+NE
+:::
+
+:::{#fig-bol-profileW}
+{{< placeholder >}}
+W
+:::
+
+:::{#fig-bol-profileE}
+{{< placeholder >}}
+E
+:::
+
+:::{#fig-bol-profileS}
+{{< placeholder >}}
+S
+:::
+
+:::
