@@ -3,16 +3,9 @@ sidebar:
   style: "docked"
   search: true
   contents:
-    - href: bol-main.qmd
+    - href: pages/bol/bol-main.qmd
       text: "Bolmen"
-
-    - section: "Climate"
-      href: bol-climate.qmd
-      contents:
-        - text: "Climate"
-          href: bol-climate.qmd
-    - section: "Hydrology"
-      href: bol-hydro.qmd
-      contents:
-        - text: "Hydrology"
-          href: bol-hydro.qmd
+    - href: pages/bol/bol-climate.qmd
+      text: "Climate"
+    - href: pages/bol/bol-hydro.qmd
+      text: "Hydrology"

@@ -1,0 +1,1 @@
+Average climate at Ljunbgy A (63510)

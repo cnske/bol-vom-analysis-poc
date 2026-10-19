@@ -1,0 +1,1 @@
+Current climate at Ljungby A (63510)

@@ -15,7 +15,8 @@ library(nanoparquet)
 library(patchwork)
 library(scico)
 library(arrow)
-library(here) #? and plotly?
+#library(here) #? and plotly?
+library(ggpmisc)
 #library(car)  ?
 #library(psych)  ?
 #library(lsr)  ?
@@ -263,6 +264,7 @@ STO <- mutate(STO, location = "Storån")
 
 ## combine data frames ##
 Inlet <- rbind(LIL, ONN, STO)
+dfDaily <- daily30 %>% reduce(full_join, by='Date')
 
 Inlet <- mutate(Inlet, date=substring(Inlet$TIMESTAMP, 0, 10) )
 Inlet <- mutate(Inlet, year=substring(Inlet$TIMESTAMP, 0, 4) )
@@ -314,7 +316,7 @@ ggplot(Inlet, aes(date, Q, color=location))+
 ############ meteorological plots ############################
 
 df <- arrow::read_parquet("metobs_bol.parquet", col_select = c(TimeStamp,StationName, ParameterName, Unit, Value))
-df$StationName <- as.factor(df$StationName)
+#df$StationName <- as.factor(df$StationName)
 df$ParameterName <- as.factor(df$ParameterName)
 df$Unit <- as.factor(df$Unit)
 df$Date <- as.Date((substring(df$TimeStamp, 0, 10)), format="%Y-%m-%d")
@@ -323,7 +325,7 @@ df$Year <- as.factor(substring(df$TimeStamp, 0, 4))
 lastYear <- floor_date(max(df$Date), unit="year")
 df1y <- subset(df, Date < lastYear & Date >= (lastYear-years(1)) & StationName =="Ljungby A")
 df30y <- subset(df, Date < lastYear & Date >= (lastYear-years(30)) & StationName =="Ljungby A")
-summary(df1y)
+str(df1y)
 
 
 
@@ -341,41 +343,41 @@ daily30 <- list(
   setNames(aggregate(Value~Date,(subset(df30y, ParameterName=="Lufttemperatur")), 
                      mean, na.rm=TRUE, na.action=NULL), c("Date", "Temperatur_d"))
 )
-df30yDaily <- daily30 %>% reduce(full_join, by='Date')
-df30yDaily$Year <-  as.factor(substring(df30yDaily$Date, 0, 4))
+dfDaily <- daily30 %>% reduce(full_join, by='Date')
+#dfDaily$Year <-  as.factor(substring(dfDaily$Date, 0, 4))
 
 
 
 #PLOTTING as BARGRAPH
 windows()
-ggplot(df30yDaily, aes(x=Date, y=Precipitation_d))+
+ggplot(dfDaily, aes(x=Date, y=Precipitation_d))+
  geom_col(fill="blue", na.rm=TRUE)+
   theme_bw()
    #Problem, dass NA wie 0 dargestellt wird
 
-df30yDaily <- df30yDaily %>%
+dfDaily <- dfDaily %>%
   mutate(Decade = case_when(
     (Date > (max(df$Date)-years(10)) ) & (Date <= max(df$Date) ) ~ "decade3",
     (Date > (max(df$Date)-years(20)) ) & (Date <= (max(df$Date)-years(10)) ) ~ "decade2",
     (Date >= (max(df$Date)-years(30)) ) & (Date <= (max(df$Date)-years(20)) ) ~ "decade1"
   ))
-df30yDaily$Decade <- as.factor(df30yDaily$Decade)
+dfDaily$Decade <- as.factor(dfDaily$Decade)
 
-pa <- ggplot(subset(df30yDaily, Decade == "decade1"), aes(x=Date, y=Precipitation_d))+
+pa <- ggplot(subset(dfDaily, Decade == "decade1"), aes(x=Date, y=Precipitation_d))+
   geom_col(fill="blue", na.rm=TRUE)+
   theme_bw()+
   coord_cartesian(ylim=c(0,70))+
   theme(axis.title.x=element_blank())+
   scale_x_date(date_labels = "%Y", breaks="1 year")
 
-pb <- ggplot(subset(df30yDaily, Decade == "decade2"), aes(x=Date, y=Precipitation_d))+
+pb <- ggplot(subset(dfDaily, Decade == "decade2"), aes(x=Date, y=Precipitation_d))+
   geom_col(fill="blue", na.rm=TRUE)+
   theme_bw()+
   coord_cartesian(ylim=c(0,70))+
   theme(axis.title.x=element_blank())+
   scale_x_date(date_labels = "%Y", breaks="1 year")
 
-pc <- ggplot(subset(df30yDaily, Decade == "decade3"), aes(x=Date, y=Precipitation_d))+
+pc <- ggplot(subset(dfDaily, Decade == "decade3"), aes(x=Date, y=Precipitation_d))+
   geom_col(fill="blue", na.rm=TRUE)+
   theme_bw()+
   coord_cartesian(ylim=c(0,70))+
@@ -389,27 +391,130 @@ ggsave("testplot.png", dpi = "retina")
 #without 0 in Precipitation
 #subset for 10 years each
 #sum of days with rain
+dfDaily1 <- subset(dfDaily, Date > (max(Date)-years(10)) & Date <= (max(Date)) )
+raindays1 <- nrow(dfDaily1[dfDaily1$Precipitation_d >0,])
+rainsum1 <- sum(dfDaily1$Precipitation_d, na.rm=TRUE)
+rainratio1 <- round(x=((raindays1 / nrow(dfDaily1))*100), digits=0)
+rainmax1 <- max(dfDaily1$Precipitation_d, na.rm=TRUE)
+
+xmax <- ceiling(max(dfDaily$Precipitation_d, na.rm=TRUE))
+windows(height=50, width=110)
+
+
 windows()
-total <- nrow(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ))
-norain <- nrow(subset(df30yDaily, Precipitation_d=0 & Date >= (max(Date)-years(10)) ))
-ggplot(data=subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ), 
-       aes(x=Precipitation_d )  )+
+ggplot(subset(dfDaily1, Precipitation_d>0), aes(x=Precipitation_d)  )+
   geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
   theme_bw()+
-  labs(y="day count", x="Amount of Precipitation in mm", title="Distribution of daily rain?!")+
-  annotate("label", x=Inf,y=Inf, label=paste("days with rain: ",total,"\n days without rain: ",norain), vjust=2, hjust=2)
- 
+  labs(y="day count", x="Amount of Precipitation in mm", 
+       title="Distribution of Daily Precipitation", 
+       subtitle=paste("between", format(min(dfDaily1$Date), format="%d.%m.%Y"), 
+                      "and", format(max(dfDaily1$Date), format="%d.%m.%Y")) )+
+  annotate("text_npc", npcx = 0.9, npcy = 0.9, 
+           label = paste("total amount of precipitation: ", round(rainsum1), 
+                         "\ndays with precipitation: ", raindays1, 
+                         "\nratio of precipitation days:  ",rainratio1, "%"))+
+  annotate("segment", x = rainmax1, xend= rainmax1, y = 0, yend = 100, 
+           linewidth=0.5, lty=2)+
+  annotate("text", x=rainmax1 , y=100, hjust=1, vjust=-0.5,
+           label = paste("max", rainmax1, "mm"))+
+  theme(plot.title=element_text(face="bold"), plot.subtitle=element_text(size=10), aspect.ratio=1)+
+  scale_y_continuous(trans = scales::pseudo_log_trans(base = 10))
+  
+
+
+dfDaily2 <- subset(dfDaily, Date > (max(Date)-years(20)) & Date <= (max(Date)-years(10)) )
+raindays2 <- nrow(dfDaily2[dfDaily2$Precipitation_d >0,])
+rainsum2 <- sum(dfDaily2$Precipitation_d, na.rm=TRUE)
+rainratio2 <- round(x=((raindays2 / nrow(dfDaily2))*100), digits=0)
+rainmax2 <- max(dfDaily2$Precipitation_d, na.rm=TRUE)
+
+Hist2 <- ggplot(subset(dfDaily2, Precipitation_d>0), aes(x=Precipitation_d )  )+
+  geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
+  theme_bw()+
+  labs(y="day count", x="Amount of Precipitation in mm", 
+       title="Distribution of Daily Precipitation", 
+       subtitle=paste("between", format(min(dfDaily2$Date), format="%d.%m.%Y"), 
+                      "and", format(max(dfDaily2$Date), format="%d.%m.%Y")) )+
+  annotate("text_npc", npcx = 0.9, npcy = 0.9, 
+           label = paste("total amount of precipitation: ", round(rainsum2), 
+                         "\ndays with precipitation: ", raindays2, 
+                         "\nratio of precipitation days:  ",rainratio2, "%"))+
+  annotate("segment", x = rainmax2, xend= rainmax2, y = 0, yend = 100, 
+           linewidth=0.5, lty=2)+
+  annotate("text", x=rainmax2 , y=100, hjust=1, vjust=-0.5,
+           label = paste("max", rainmax2, "mm"))+
+  theme(plot.title=element_text(face="bold"), plot.subtitle=element_text(size=10), aspect.ratio=1)+
+  coord_cartesian(xlim=c(0, xmax), ylim=c(0, 800))
 
 
 
-label=paste("some text", parse(nrow(data)))
-total <- nrow(subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) ))
-paste("N =", nrow(.))
-test <- subset(df30yDaily, Precipitation_d>0 & Date >= (max(Date)-years(10)) )
-?annotate
-stat_bin(geom = "text", aes(label = ..count..))
+
+dfDaily3 <- subset(dfDaily, Date > (max(Date)-years(30)) & Date <= (max(Date)-years(20)) )
+raindays3 <- nrow(dfDaily3[dfDaily3$Precipitation_d >0,])
+rainsum3 <- sum(dfDaily3$Precipitation_d, na.rm=TRUE)
+rainratio3 <- round(x=((raindays3 / nrow(dfDaily3))*100), digits=0)
+rainmax3 <- max(dfDaily3$Precipitation_d, na.rm=TRUE)
+
+Hist3 <- ggplot(subset(dfDaily3, Precipitation_d>0), aes(x=Precipitation_d )  )+
+  geom_histogram(binwidth=1, fill="steelblue1", center=0.5)+
+  theme_bw()+
+  labs(y="day count", x="Amount of Precipitation in mm", 
+       title="Distribution of Daily Precipitation", 
+       subtitle=paste("between", format(min(dfDaily3$Date), format="%d.%m.%Y"), 
+                      "and", format(max(dfDaily3$Date), format="%d.%m.%Y")) )+
+  annotate("text_npc", npcx = 0.9, npcy = 0.9, 
+           label = paste("total amount of precipitation: ", round(rainsum3), 
+                         "\ndays with precipitation: ", raindays3, 
+                         "\nratio of precipitation days:  ",rainratio3, "%"))+
+  annotate("segment", x = rainmax3, xend= rainmax3, y = 0, yend = 100, 
+           linewidth=0.5, lty=2)+
+  annotate("text", x=rainmax3 , y=100, hjust=1, vjust=-0.5,
+           label = paste("max", rainmax3, "mm"))+
+  theme(plot.title=element_text(face="bold"), plot.subtitle=element_text(size=10), aspect.ratio=1)+
+  coord_cartesian(xlim=c(0, xmax), ylim=c(0, 800))
+
+Hist3 + Hist2 + Hist1
+ggsave("test_histogram.png", dpi = "retina")
+
+
+
 #Histogram for daily mean Temperature, distribution of extreme events
 #subset for 10 years each
+
+
+dfT <- subset(dfDaily, Date > (max(Date)-years(30)) & Date <= (max(Date)-years(20)) )
+
+StationName <- str_c(df30y[1, "StationName"])
+
+Tmean <- round(mean(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+Tmax <- round(max(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+Tmin <- round(min(dfT$Temperatur_d, na.rm=TRUE), digits=1)
+
+
+windows()
+ggplot(dfT, aes(x=Temperatur_d )  )+
+  geom_histogram(binwidth=1, fill="grey", center=0)+
+  theme_bw()+
+  labs(y="day count", x="daily air temperature in °C", 
+       title="Distribution of Daily Temperature", 
+       subtitle=paste("between", format(min(dfT$Date), format="%d.%m.%Y"), 
+                      "and", format(max(dfT$Date), format="%d.%m.%Y"),
+                      "\nat weather station", StationName) )+
+  geom_vline(xintercept=Tmean, lty=2)+
+  annotate("text", x=Tmean, y=230, label=paste("mean:", Tmean, "°C"), 
+           hjust=1.1, vjust=-1)+
+  geom_vline(xintercept=Tmax, lty=2, color="red")+
+  annotate("text", x=Tmax, y=230, label=paste("max:", Tmax, "°C"), color="red", 
+           hjust=1.1, vjust=-1)+
+  geom_vline(xintercept=Tmin, lty=2, color="blue")+
+  annotate("text", x=Tmin, y=230, label=paste("min:", Tmin, "°C"),color="blue", 
+           hjust=-0.1, vjust=-1)+
+  theme(plot.title=element_text(face="bold"), aspect.ratio=1)+
+  coord_cartesian(xlim=c(-23, 30), ylim=c(0, 250))
+
+
+
+
 
 
 ### average Klimadiagramm 30 years ###

@@ -6,7 +6,25 @@ bibliography: ../references.bib
 ## Climate 
 Bolmen is located in the warm-summer humid continental climate zone (Dfb) according to the Köppen-Geiger climate classification [@Jerue]. 
 
-:::{#fig-bol-avg-clim}
-{{< placeholder >}}
-Average climate at Bolmen, recorded at station XYZ.
+:::{style="width: 95%; margin:0 auto;"}
+
+:::{#fig-bol-meteo-avg}
+```{=html}
+<iframe src="../../fig/html/meteo_avg_bol.html" width="100%" height="500px"></iframe> 
+```
+{{< include ../../fig/html/meteo_avg_bol_caption.md >}}
+:::
+
+:::
+
+:::{style="width: 95%; margin:0 auto;"}
+
+:::{#fig-bol-meteo-current}
+```{=html}
+<iframe src="../../fig/html/meteo_current_bol.html" width="100%" height="500px"></iframe> 
+```
+
+{{< include ../../fig/html/meteo_current_bol_caption.md >}}
+:::
+
 :::
