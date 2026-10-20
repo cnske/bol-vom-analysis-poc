@@ -35,8 +35,8 @@ W
 :::
 
 :::{#fig-bol-profileE}
-{{< placeholder >}}
-E
+![Bolmen Subbasin East](../../fig/WQ_BOL_profile_pH_BS-E.eps)
+
 :::
 
 :::{#fig-bol-profileS}
@@ -45,3 +45,5 @@ S
 :::
 
 :::
+
+### PFAS

@@ -178,6 +178,123 @@ Temperature_distribution(10, "metobs_bol.parquet", "Lufttemperatur")
 
 ###### depth_measurements() ###### 
 
+
+skipBolmE <- which((readLines(con="SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv"))=="####")
+BolmE <- read.csv("SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv", skip = skipBolmE, sep=",", header = T, dec=".", stringsAsFactors = T)
+BolmE <- mutate(BolmE, location = "BOL_BS-E")
+
+skipBolmNE <- which((readLines(con="SITES_SONDE-PROF_BOL_BS-NE_20220510-20251103_L2_irregular.csv"))=="####")
+BolmNE<- read.csv("SITES_SONDE-PROF_BOL_BS-NE_20220510-20251103_L2_irregular.csv", skip = skipBolmNE, sep=",", header = T, dec=".", stringsAsFactors = T)
+BolmNE <- mutate(BolmNE, location = "BOL_BS-NE")
+
+skipBolmNW <- which((readLines(con="SITES_SONDE-PROF_BOL_BS-NW_20220510-20251103_L2_irregular.csv"))=="####")
+BolmNW<- read.csv("SITES_SONDE-PROF_BOL_BS-NW_20220510-20251103_L2_irregular.csv", skip = skipBolmNW, sep=",", header = T, dec=".", stringsAsFactors = T)
+BolmNW <- mutate(BolmNW, location = "BOL_BS-NW")
+
+skipBolmS <- which((readLines(con="SITES_SONDE-PROF_BOL_BS-S_20220712-20251103_L2_irregular.csv"))=="####")
+BolmS<- read.csv("SITES_SONDE-PROF_BOL_BS-S_20220712-20251103_L2_irregular.csv", skip = skipBolmS, sep=",", header = T, dec=".", stringsAsFactors = T)
+BolmS <- mutate(BolmS, location = "BOL_BS-S")
+
+skipBolmW <- which((readLines(con="SITES_SONDE-PROF_BOL_BS-W_20220413-20251103_L2_irregular.csv"))=="####")
+BolmW<- read.csv("SITES_SONDE-PROF_BOL_BS-W_20220413-20251103_L2_irregular.csv", skip = skipBolmW, sep=",", header = T, dec=".", stringsAsFactors = T)
+BolmW <- mutate(BolmW, location = "BOL_BS-W")
+
+## combine data frames ##
+BolmProfile <- rbind(BolmE, BolmNE, BolmNW, BolmS, BolmW) 
+
+BolmProfile <- mutate(BolmProfile, date=substring(BolmProfile$TIMESTAMP, 0, 10) )
+#BolmProfile <- mutate(BolmProfile, year=substring(BolmProfile$TIMESTAMP, 0, 4) )
+#BolmProfile$year <- as.factor(BolmProfile$year)
+BolmProfile$location <- as.factor(BolmProfile$location)
+BolmProfile$date <- as.Date( BolmProfile$date, format="%Y-%m-%d")
+lastYear <- floor_date(max(dfraw$Date), unit="year")
+
+
+#DF big dataframe with all locations and years
+# build DF from list with individual names
+
+List <- list(
+  "SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv",
+  "SITES_SONDE-PROF_BOL_BS-NE_20220510-20251103_L2_irregular.csv",
+  "SITES_SONDE-PROF_BOL_BS-NW_20220510-20251103_L2_irregular.csv",
+  "SITES_SONDE-PROF_BOL_BS-S_20220712-20251103_L2_irregular.csv",
+  "SITES_SONDE-PROF_BOL_BS-W_20220413-20251103_L2_irregular.csv"
+)
+my_list <- list()
+
+
+for (element in List) {
+  skip <- which((readLines(con=element))=="####")
+  df <- read.csv(element, skip = skipBolmW, sep=",", header = T, dec=".", stringsAsFactors = T)
+  Location <- substring(element, 17, 26)
+  df <- mutate(df, location = Location)
+  
+  my_list <- append(my_list, list(df))
+  assign(paste0("df_", Location), df)
+}
+
+DF <- bind_rows(my_list, .id="ID")
+
+#function with filename, parameter
+
+#set data
+df <- subset(BolmProfile, location=="BOL_BS-E" & year=="2025") #set location (and Year? )
+df$depth <- c(df$D_Water)
+df$value <- c(df$pH)          #set value
+
+
+
+#create functions for interpolation
+
+estimate_val_by_date <- function(target_date, target_depth) {
+  data_for_date <- df %>%        
+    filter(date == target_date) %>%
+    arrange(depth)
+  approx(data_for_date$depth, data_for_date$value, xout = target_depth, ties = min)$y }
+
+estimate_val_by_depth <- function(target_depth, target_date) {
+  data_for_depth <- val_interp_depth %>% 
+    filter(depth == target_depth) %>%
+    arrange(date)
+  approx(data_for_depth$date, data_for_depth$value, xout = target_date)$y }
+
+# LOOP: i for location factor, repeat for all locations
+
+#calculate values
+val_interp_depth <- crossing(
+  tibble(date = unique(df$date)), #sampling days
+  tibble(depth = seq(1, (floor(max(df$depth))), length.out = 100)) #1m to max depth (rounded down)
+) %>%
+  group_by(date) %>%
+  mutate(value = estimate_val_by_date(date[1], depth)) #calculating values
+
+val_raster <- crossing(
+  tibble(date = seq(ymd(min(df$date)), ymd(max(df$date)), by = 1)),
+  tibble(depth = unique(val_interp_depth$depth))
+) %>%
+  group_by(depth) %>%
+  mutate(value = estimate_val_by_depth(depth[1], date))
+
+
+
+#plotting
+windows()
+ggplot(val_raster, aes(date, depth, fill = value)) +
+  geom_raster() +
+  scale_y_reverse() +
+  scale_fill_scico(palette = "batlow") +        #binning? limits=c()
+  coord_cartesian(expand = FALSE)+
+  labs(y="depth in m", x="", title= "Depth Profile of pH at Location BOL_BS-E in 2025")
+
+ggsave(filename = "WQ_BOL_profile_pH_BS-E.eps", dpi = "retina", path ="C:/Users/luzie/Lund University/Clemens Klante - Intern - Luzie Rieth/bol-vom-analysis-poc/fig" )
+
+
+
+str_c("histogram_T_t", t1,"_", format(Sys.time(), "%Y-%m-%d")
+paste("Depth Profile of", parameter, "at Location", location, year)
+
+
+
 ###### discharge() ###### 
  
 
