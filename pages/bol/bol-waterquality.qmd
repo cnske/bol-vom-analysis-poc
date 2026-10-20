@@ -25,8 +25,7 @@ NW
 :::
 
 :::{#fig-bol-profileNE}
-{{< placeholder >}}
-NE
+![Bolmen Subbasin North-East](../../fig/WQ_BOL_profile_pH_BS-NE.eps)
 :::
 
 :::{#fig-bol-profileW}
@@ -35,8 +34,8 @@ W
 :::
 
 :::{#fig-bol-profileE}
-![Bolmen Subbasin East](../../fig/WQ_BOL_profile_pH_BS-E.eps)
-
+{{< placeholder >}}
+E
 :::
 
 :::{#fig-bol-profileS}
