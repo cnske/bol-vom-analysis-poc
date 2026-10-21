@@ -11,7 +11,7 @@ website:
       - href: pages/bol/bol-main.qmd
         text: Bolmen
       - href: pages/vom/vom-main.qmd
-        text: Vomb
+        text: Vombsjön
       - href: pages/rin/rin-main.qmd
         text: Ringsjön
       - href: pages/about.qmd

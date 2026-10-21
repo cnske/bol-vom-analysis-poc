@@ -5,8 +5,6 @@ bibliography: ../references.bib
 lightbox: true
 ---
 
-## Water quality
-
 ### Epilimnion
 
 The current sampling for the epilimnion consist of analysis of the absorbance at differnt wavelength. 
@@ -19,30 +17,28 @@ Absorbance measurements of the epilimnion.
 
 ### Profile 
 
+#### fDOM 
+
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW}
-{{< placeholder >}}
-NW
+![Bolmen Subbasin North-West](../../fig/WQ_profile_BOL_BS-NW_FDOM.svg)
 :::
 
 :::{#fig-bol-profileNE}
-![Bolmen Subbasin North-East](../../fig/WQ_BOL_profile_pH_BS-NE.eps)
+![Bolmen Subbasin North-East](../../fig/WQ_profile_BOL_BS-NE_FDOM.svg)
 :::
 
 :::{#fig-bol-profileW}
-{{< placeholder >}}
-W
+![Bolmen Subbasin West](../../fig/WQ_profile_BOL_BS-W_FDOM.svg)
 :::
 
 :::{#fig-bol-profileE}
-{{< placeholder >}}
-E
+![Bolmen Subbasin East](../../fig/WQ_profile_BOL_BS-E_FDOM.svg)
 :::
 
 :::{#fig-bol-profileS}
-{{< placeholder >}}
-S
+![Bolmen Subbasin South](../../fig/WQ_profile_BOL_BS-S_FDOM.svg)
 :::
 
 :::

@@ -1,7 +1,10 @@
-setwd("C:/Users/luzie/Lund University/Clemens Klante - Intern - Luzie Rieth/bol-vom-analysis-poc/data")
+#setwd("C:/Users/luzie/Lund University/Clemens Klante - Intern - Luzie Rieth/bol-vom-analysis-poc/data")
 #setwd("./data")
 #getwd()
 
+
+here::i_am("bolmen_analysis.R")
+setwd(here())
 #install.packages("here")
 library(tidyverse) #includes ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats, lubridate
 library(doBy)
@@ -15,7 +18,9 @@ library(nanoparquet)
 library(patchwork)
 library(scico)
 library(arrow)
-#library(here) #? and plotly?
+library(svglite)
+library(here) 
+#? and plotly?
 library(ggpmisc)
 #library(car)  ?
 #library(psych)  ?
@@ -23,7 +28,7 @@ library(ggpmisc)
 #library(RColorBrewer)  ?
 #library(scales)    ?
 
-
+setwd(here)
 
 
 ############ Bolmen depth measurements ############ 

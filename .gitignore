@@ -20,3 +20,4 @@ testing.ipynb
 fig/png/**
 
 **/__pycache__
+.Rproj.user

@@ -44,6 +44,7 @@ jobs:
       - name: Run Analysis Notebook
         run: |
           jupyter execute src/notebooks/analysis_rin.ipynb
+          jupyter execute src/notebooks/analysis_bol.ipynb
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

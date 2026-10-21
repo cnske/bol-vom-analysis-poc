@@ -1,6 +1,12 @@
 #analysis functions
+library(here)
+here::i_am("analysis_functions.R")
+setwd(here())
 
+pathdata <- paste0(here(), "/data/")
+pathfig <- paste0(here(), "/fig")
 
+testdf <- read.csv(paste0(pathdata, "SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv"))
 
 ##### set work space #####
 
@@ -31,7 +37,7 @@ df <- daily %>% reduce(full_join, by='Date')
 
 
 ###### precipitation_distribution() ###### 
-
+?read_parquet
 
 Precipitation_distribution <- function(a, filename, parameter)
 {
@@ -192,116 +198,105 @@ Temperature_distribution(10, "metobs_bol.parquet", "Lufttemperatur")
 ###### depth_measurements() ###### 
 
 
+depth_profile <- function(List, parameter)
+{
+  df_list <- list()
+  location_list <- list()
+  
+  for (element in List) {
+    skip <- which((readLines(con= paste0(pathdata, element)))=="####")
+    df <- read.csv(paste0(pathdata, element), skip = skip, sep=",", header = T, dec=".", stringsAsFactors = T)
+    LocationName <- str_sub(element, start = 18, end=-36)
+    location_list <- append(location_list, list(LocationName))
+    df <- mutate(df, location = LocationName)
+    df_list <- append(df_list, list(df))
+    assign(paste("df_", LocationName, sep=""), df)
+  }
+  
+  DF <- bind_rows(df_list)
+  DF <- mutate(DF, date=substring(DF$TIMESTAMP, 0, 10) )
+  DF$location <- as.factor(DF$location)
+  DF$date <- as.Date( DF$date, format="%Y-%m-%d")
+  lastYear <- floor_date(max(DF$date), unit="year")
+  
+  
+  estimate_val_by_date <- function(target_date, target_depth) {
+    data_for_date <- df %>%        
+      filter(date == target_date) %>%
+      arrange(depth)
+    approx(data_for_date$depth, data_for_date$value, xout = target_depth, ties = min)$y }
+  
+  estimate_val_by_depth <- function(target_depth, target_date) {
+    data_for_depth <- val_interp_depth %>% 
+      filter(depth == target_depth) %>%
+      arrange(date)
+    approx(data_for_depth$date, data_for_depth$value, xout = target_date)$y }
+  
+  #for loop with parameter from list
+  for (element in location_list)
+  {
+    df <- subset(DF, location==element & date >= (lastYear-years(1))  & date < lastYear)
+    df$depth <- c(df$D_Water)
+    df$value <- c(df$parameter)
+    interp_depth <- max( df$depth[df$depth!=max(df$depth)] )
+    
+    val_interp_depth <- crossing(
+      tibble(date = unique(df$date)), 
+      tibble(depth = seq(1, interp_depth, length.out = 100)) 
+    ) %>%
+      group_by(date) %>%
+      mutate(value = estimate_val_by_date(date[1], depth)) 
+    
+    val_raster <- crossing(
+      tibble(date = seq(ymd(min(df$date)), ymd(max(df$date)), by = 1)),
+      tibble(depth = unique(val_interp_depth$depth))
+    ) %>%
+      group_by(depth) %>%
+      mutate(value = estimate_val_by_depth(depth[1], date))
+    
+    
+    ggplot(val_raster, aes(date, depth, fill = value)) +
+      geom_raster() +
+      scale_y_reverse() +
+      scale_x_date(date_breaks="1 month", date_labels="%b")+
+      scale_fill_scico(palette = "batlow") +        #binning? limits=c()
+      coord_cartesian(expand = FALSE)+
+      labs(y = "depth in m", 
+           title = paste0("Depth Profile of ", parameter, " at ", element, " in ", format.Date(lastYear-1, format="%Y")    ) )+
+      theme(plot.title=element_text(face="bold"), aspect.ratio=1)
+    
+    ggsave(filename = paste0("WQ_profile_", element, "_", parameter, ".svg" ), 
+           path=pathfig, dpi = "retina" )
+    
+
+  }
+  #end of loop with parameter from list
+  
+  return(location_list)
+}
+
+#parameters:   List = a list with all the csv files 
+#              parameter = a column name of csv file
+
+#              maybe a loop so it repeats for every parameter in list?
+
 List <- list(
-  "SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv",
-  "SITES_SONDE-PROF_BOL_BS-NE_20220510-20251103_L2_irregular.csv",
-  "SITES_SONDE-PROF_BOL_BS-NW_20220510-20251103_L2_irregular.csv",
-  "SITES_SONDE-PROF_BOL_BS-S_20220712-20251103_L2_irregular.csv",
-  "SITES_SONDE-PROF_BOL_BS-W_20220413-20251103_L2_irregular.csv"
-)
+  "SITES_SONDE-PROF_BOL_BS-E_20220413-20251103_L2_irregular.csv" ,
+  "SITES_SONDE-PROF_BOL_BS-NE_20220510-20251103_L2_irregular.csv" ,
+  "SITES_SONDE-PROF_BOL_BS-NW_20220510-20251103_L2_irregular.csv" ,
+  "SITES_SONDE-PROF_BOL_BS-S_20220712-20251103_L2_irregular.csv" ,
+  "SITES_SONDE-PROF_BOL_BS-W_20220413-20251103_L2_irregular.csv" )
 
 parameter = "pH"
 
-#### FUNCTION 
+depth_profile(List, "FDOM")
 
-
-     #setting up big dataframe DF
-
-df_list <- list()
-location_list <- list()
-
-for (element in List) {
-  skip <- which((readLines(con=element))=="####")
-  df <- read.csv(element, skip = skip, sep=",", header = T, dec=".", stringsAsFactors = T)
-  LocationName <- str_sub(element, start = 18, end=-36)
-  location_list <- append(location_list, list(LocationName))
-  df <- mutate(df, location = LocationName)
-  df_list <- append(df_list, list(df))
-  assign(paste("df_", LocationName), df)
-}
-
-DF <- bind_rows(df_list)
-
-DF <- mutate(DF, date=substring(DF$TIMESTAMP, 0, 10) )
-DF$location <- as.factor(DF$location)
-DF$date <- as.Date( DF$date, format="%Y-%m-%d")
-lastYear <- floor_date(max(DF$date), unit="year")
-
-
-    #create functions for interpolation
-
-estimate_val_by_date <- function(target_date, target_depth) {
-  data_for_date <- df %>%        
-    filter(date == target_date) %>%
-    arrange(depth)
-  approx(data_for_date$depth, data_for_date$value, xout = target_depth, ties = min)$y }
-
-estimate_val_by_depth <- function(target_depth, target_date) {
-  data_for_depth <- val_interp_depth %>% 
-    filter(depth == target_depth) %>%
-    arrange(date)
-  approx(data_for_depth$date, data_for_depth$value, xout = target_date)$y }
-
-
-  ## LOOP ##     i for location factor, repeat for all locations
-
-for (element in location_list)
-  {
-  #subset
-  
-  df <- subset(DF, location==element & date >= (lastYear-years(1))  & date < lastYear)
-  df$depth <- c(df$D_Water)
-  df$value <- c(df$parameter)          #set value
-  
-  
-  #calculate values
-  
-  val_interp_depth <- crossing(
-    tibble(date = unique(df$date)), #sampling days
-    tibble(depth = seq(1, interp_depth, length.out = 100)) #1m to max depth (rounded down)
-  ) %>%
-    group_by(date) %>%
-    mutate(value = estimate_val_by_date(date[1], depth)) #calculating values
-  
-  val_raster <- crossing(
-    tibble(date = seq(ymd(min(df$date)), ymd(max(df$date)), by = 1)),
-    tibble(depth = unique(val_interp_depth$depth))
-  ) %>%
-    group_by(depth) %>%
-    mutate(value = estimate_val_by_depth(depth[1], date))
-  
-  
-  floor(max(df$depth)) #!!!! second largest depth? and then floor?
-  n <- length(x)
-  sort(x,partial=n-1)[n-1]
-  interp_depth <- max( df$depth[df$depth!=max(df$depth)] )
-  
-  
-  #plotting
-  
-  windows()
-  ggplot(val_raster, aes(date, depth, fill = value)) +
-    geom_raster() +
-    scale_y_reverse() +
-    scale_fill_scico(palette = "batlow") +        #binning? limits=c()
-    coord_cartesian(expand = FALSE)+
-    labs(y="depth in m", x="", title= "Depth Profile of pH at Location BOL_BS-E in 2025")
-  
-  ggsave(filename = "WQ_BOL_profile_pH_BS-NE.svg", dpi = "retina", path ="C:/Users/luzie/Lund University/Clemens Klante - Intern - Luzie Rieth/bol-vom-analysis-poc/fig" )
-  
-  
-}
-
-
-return()
-
-   #end of function
 
 ###### discharge() ###### 
  
 
 
-
+?ggsave
 
 
 

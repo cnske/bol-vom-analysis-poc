@@ -72,6 +72,6 @@ Current Water Level
 :::
 
 ## References {.unlisted}
-May this part be hidden and only the links should be active, which then brings you to the list of references for the entire website?
+
 :::{#refs}
 :::

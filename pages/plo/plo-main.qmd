@@ -1,0 +1,10 @@
+---
+title: "Plönninge Testbed"
+bibliography: ../references.bib
+---
+
+The Plönninge Testbed is a research and collaboration initiative between Region Halland, Sydvatten AB, Geologial Survey of Sweden (SGU), Halmstad University and Lund University that focuses on studying how the rewetting of drained forest and peatlands affects the quality of groundwater and surface water, as well as biodiversity [@Sydvatten]
+
+## References {.unlisted}
+:::{#refs}
+:::
