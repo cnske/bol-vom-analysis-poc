@@ -4,6 +4,11 @@
 *.DS_Store
 thumbs.db
 
+# R files
+.RData
+.RDataTmp
+.Rhistory
+
 # Other files
 *.xls
 *.xlsx

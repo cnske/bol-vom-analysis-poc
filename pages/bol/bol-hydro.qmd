@@ -7,6 +7,12 @@ bibliography: ../references.bib
 
 ### Water level
 
+:::{.calout-important}
+
+This part is still under construction. Figures and information will follow here. 
+:::
+
+
 :::{#fig-bol-waterlevel}
 {{< placeholder >}}
 

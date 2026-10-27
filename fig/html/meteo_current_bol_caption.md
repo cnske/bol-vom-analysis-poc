@@ -1,1 +1,1 @@
-Current climate at Ljungby A (63510)
+Current climate at Ljungby A (63510).    Annual precipitation: 459.1 mm.        Annual average temperature: 8.48 °C.

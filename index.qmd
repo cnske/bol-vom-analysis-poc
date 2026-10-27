@@ -1,5 +1,6 @@
 ---
 title: Lake Data Portal
+bibliography: references.bib
 ---
 
 :::{.callout-warning}
@@ -8,7 +9,7 @@ title: Lake Data Portal
 This interactive data portal and automated datapipeline are currently under active development.
 :::
 
-Welcome!
+# Welcome!
 
 This portal automatically ingests, processes, and displays environemntal monitoring data of the following lakes:
 
@@ -17,3 +18,20 @@ This portal automatically ingests, processes, and displays environemntal monitor
 - [Ringsjön](/pages/rin/rin-main.qmd)
 
 and from [Testbed Plönninge](/pages/plo/plo-main.qmd)
+
+## Data Resources
+
+The following data is used on this portal: 
+
+| Type of Data | Datasource | Reference |
+| ------------ | ---------- | --------- |
+| Meteorological data | SMHI Open Data | [@SMHI_OpenData] |
+| Water Quality data | SITES, Sydvatten | [@SITTES_Dataportal, @BOL] |
+| Hydrological data | Sydvatten | [@BOL] |
+
+For the visualization of color the scientific color maps of @Crameri_2023 have been used.
+
+## References {.unlisted}
+
+:::{#refs}
+:::

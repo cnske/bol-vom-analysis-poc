@@ -1,0 +1,25 @@
+Package: bolmen_analysis
+Title: Visualization of lake data
+Version: 0.1.0
+Authors@R: 
+    person("Surname", "Name", email = "Name.Surname@email.com", role = c("aut", "cre"))
+Description: <Write something nice>
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    here, 
+    tidyverse, 
+    doBy, 
+    multcomp, 
+    EnvStats, 
+    readxl, 
+    ggtext, 
+    readtext, 
+    base, 
+    nanoparquet, 
+    scico, 
+    arrow, 
+    svglite, 
+    ggpmisc, 
+    raster

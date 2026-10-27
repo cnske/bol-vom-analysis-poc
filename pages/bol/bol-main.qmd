@@ -18,18 +18,14 @@ This part should contain:
     - max. depth
     - mean depth
 - a (interactive) map with sampling locations, maybe as GoogleEarth Link
-
-<iframe width="780" height="500" src="https://forskningsstationbolmen.se/forska-hos-oss/miljoovervakning-environmental-monitoring/" ></iframe>
-
 - some general information like e.g. imporant industry
-
 
 ## Current Conditions
 
 :::{.callout-important}
 ## Implementation still missing
 
-The current conditions section depends on working datapipeline backend, which does not yet exits. We are working on it.
+The current conditions section depends on a working datapipeline backend, which is not fully working yet. We are working on it and will update this section as soon as possible.
 :::
 
 This part should contain the current conditions, which may actually be update on a more regular base, e.g. every hour. The visualization should be simple and only show numbers and text, to graphs. 

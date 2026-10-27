@@ -30,6 +30,44 @@ Bolmen is located in the warm-summer humid continental climate zone (Dfb) accord
 
 ## Statistics
 
-:::{#fig-bol-meteo-t-hist}
-![]
+Changes in climate, with focus on precipitation and temperature have been observed in the catchment of Bolmen. According to @Klante_2023 an increase in extreme weather events can be observed, which may alter the local hydrology.
+The following plots visualize the distribution of daily precipitation grouped in ten year intervals. 
 
+:::{layout="[[33,33,33]]"}
+
+:::{#fig-bol-met-hist_p-t0}
+![T0](../../fig/svg/bol/MET_hist_P_bol_a10_t0.svg)
+:::
+
+:::{#fig-bol-met-hist_p-t10}
+![T10](../../fig/svg/bol/MET_hist_P_bol_a10_t10.svg)
+:::
+
+:::{#fig-bol-met-hist_p-t20}
+![T20](../../fig/svg/bol/MET_hist_P_bol_a10_t20.svg)
+:::
+
+:::
+
+Variations in daily air temperatures are visualized in the following plots, which are grouped in ten year intervals. 
+
+:::{layout="[[33,33,33]]"}
+
+:::{#fig-bol-met-hist_t-t0}
+![T0](../../fig/svg/bol/MET_hist_T_bol_a10_t0.svg)
+:::
+
+:::{#fig-bol-met-hist_t-t10}
+![T10](../../fig/svg/bol/MET_hist_T_bol_a10_t10.svg)
+:::
+
+:::{#fig-bol-met-hist_t-t20}
+![T20](../../fig/svg/bol/MET_hist_T_bol_a10_t20.svg)
+:::
+
+:::
+
+## References {.unlisted}
+
+:::{#refs}
+:::
