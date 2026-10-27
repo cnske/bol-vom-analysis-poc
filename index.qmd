@@ -26,7 +26,7 @@ The following data is used on this portal:
 | Type of Data | Datasource | Reference |
 | ------------ | ---------- | --------- |
 | Meteorological data | SMHI Open Data | [@SMHI_OpenData] |
-| Water Quality data | SITES, Sydvatten | [@SITTES_Dataportal; @BOL] |
+| Water Quality data | SITES, Sydvatten | [@SITES_Data; @BOL] |
 | Hydrological data | Sydvatten | [@BOL] |
 
 For the visualization of color the scientific color maps of @Crameri_2023 have been used.
