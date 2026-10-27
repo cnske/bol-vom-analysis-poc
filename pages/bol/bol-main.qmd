@@ -10,7 +10,7 @@ This page is still under construction. Figures and information will follow here.
 
 ## About Bolmen
 
-The surface area of Lake Bolmen is 173 km2, which makes it the twelf largest lake in Sweden [@SMHI_2008; @Klante_2023; @Bjerken_2026]
+The surface area of Lake Bolmen is 173 km2, which makes it the twelf largest lake in Sweden [@SMHI_2008; @Klante_2023]
 Here should be some basic information about the lake. 
 This part should contain: 
 
