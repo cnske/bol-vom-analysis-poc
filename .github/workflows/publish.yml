@@ -46,15 +46,15 @@ jobs:
           jupyter execute src/notebooks/analysis_rin.ipynb
           jupyter execute src/notebooks/analysis_bol.ipynb
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-
-      - name: Install R dependencies from DESCRIPTION
-        uses: r-lib/actions/setup-r-dependencies@v2
-
-      - name: Run R-Script
-        run: |
-          Rscript analysis_functions.R
+      #      - name: Set up R
+      #        uses: r-lib/actions/setup-r@v2
+      #
+      #      - name: Install R dependencies from DESCRIPTION
+      #        uses: r-lib/actions/setup-r-dependencies@v2
+      #
+      #      - name: Run R-Script
+      #        run: |
+      #          Rscript analysis_functions.R
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
