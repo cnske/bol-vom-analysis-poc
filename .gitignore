@@ -5,8 +5,7 @@
 thumbs.db
 
 # R files
-.RData
-.RDataTmp
+.RData*
 .Rhistory
 
 # Other files

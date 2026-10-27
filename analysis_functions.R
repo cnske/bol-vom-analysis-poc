@@ -67,10 +67,23 @@ climate_diagram <- function(filename)
   avgT <- setNames(aggregate(Temperature_m ~ str_sub(monthlyT$MonthYear, start = -2) ,
     data = monthlyT, FUN=mean, na.rm=TRUE),
     c("Month", "Temperature"))
-  
+  avgT$Month_int <- as.integer(avgT$Month)
+  str(avgT)
   #summary(subset(monthlyT, str_sub(monthlyT$MonthYear, start = -2) == "01")) #works!!
   
   #using avgP/T for climatediagram and monthlyP/T for last Year data
+  #transform Month back into a Date? continous?
+  
+  ggplot()+
+    geom_bar(data = avgP, aes(y = Precipitation/2, x = Month, fill="Precipitation"), stat="identity")+
+    #geom_bar(mapping = aes(y = Precipitation_m/2, colour="grey"),
+     #        data =  lastmonthlyP, stat="identity")
+    geom_line(data = avgT, aes(y = Temperature, x = Month_int), linewidth=1.2)+
+    scale_x_discrete()
+  
+  
+  
+  
   
   ggplot(df, aes(x= Date)) +
     geom_bar(aes(y= Precipitation_m/2, fill = "Precipitation_d"), stat="identity")  +
@@ -89,7 +102,7 @@ climate_diagram <- function(filename)
           legend.position = "bottom",
           axis.title.x = element_blank()) 
   
-  ggsave(filename = str_c("meteo_climate_", SiteName, "_", StationName, ".svg"), 
+  ggsave(filename = str_c("MET_climate_", SiteName, "_", StationName, ".svg"), 
          path=Path, dpi = "retina")
   
   #end of loop for each station
@@ -171,7 +184,7 @@ Precipitation_distribution <- function(a, filename, parameter)
       coord_cartesian(xlim=c(0, xmax))+
       scale_y_continuous(trans = scales::pseudo_log_trans(base = 10))
     
-    ggsave(filename = str_c("meteo_hist_P_", SiteName, "_a", a, "_t", t1, ".svg"), 
+    ggsave(filename = str_c("MET_hist_P_", SiteName, "_a", a, "_t", t1, ".svg"), 
             path=Path, dpi = "retina")
     
     t1 <- t1 + a       
@@ -257,7 +270,7 @@ Temperature_distribution <- function(a, filename, parameter)
       theme(plot.title=element_text(face="bold"), aspect.ratio=1)+
       coord_cartesian(xlim=c(-23, 30), ylim=c(0, 250))
     
-    ggsave(filename = str_c("meteo_hist_T_", SiteName, "_a", a, "_t", t1, ".svg"),
+    ggsave(filename = str_c("MET_hist_T_", SiteName, "_a", a, "_t", t1, ".svg"),
            path=Path, dpi = "retina")
     
     t1 <- t1 + a  
@@ -316,20 +329,21 @@ depth_profile <- function(Site, parameter_list)
       arrange(date)
     approx(data_for_depth$date, data_for_depth$value, xout = target_date)$y }
   
-  #loop for all year
+  #loop for all year 
+  #LastYear - years(a) 
+  # a <- a+1
   
   for (parameter in parameter_list)
   {
-    #getting rid of outliers ???
+    
  
     
     for (element in location_list)
     {
-      #subset: one location, timeframe and between limit1 and limit2
+      #subset: one location, one year, one parameter
       df <- subset(DF, location==element & date >= (lastYear-years(1))  &  date < lastYear) 
       df$depth <- c(df$D_Water)
       df$value <-  c(df[, parameter])
-      #df <- subset(df, value >= limit1 & value <= limit2)  
       interp_depth <- max( df$depth[df$depth!=max(df$depth)] )
       
       Path <- case_when(
@@ -377,12 +391,15 @@ depth_profile <- function(Site, parameter_list)
         TRUE ~ "imola" 
       )
       
+      #Binning <- max(DF$parameter) 
+      rng = range(c(parameter_list))
+      Limits <- c(floor(min(DF$parameter)), ceiling(max))
       
       ggplot(val_raster, aes(date, depth, fill = value)) +
         geom_raster() +
         scale_y_reverse() +
         scale_x_date(date_breaks="1 month", date_labels="%b")+
-        scale_fill_scico(palette = Palette, direction=-1, na.value = "transparent") + 
+        scale_fill_scico(palette = Palette, direction=-1, na.value = "transparent", limits = Limits) + 
         coord_cartesian(expand = FALSE)+
         labs(y = "depth in m", fill = Legendtitel )+
         theme(axis.title.x=element_blank(), )
@@ -406,7 +423,7 @@ depth_profile <- function(Site, parameter_list)
 
 
 parameter_list <- c( "TW", "O2", "O2SAT", "pH")
-Site <- "BOL"
+
 
 depth_profile("BOL", parameter_list)
 
