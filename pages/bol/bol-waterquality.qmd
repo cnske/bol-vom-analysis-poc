@@ -22,23 +22,23 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_TW}
-![Bolmen Subbasin North-West](../../fig/WQ_profile_BOL_BS-NW_TW.svg)
+![Bolmen Subbasin North-West](../../fig/svg/WQ_profile_BOL_BS-NW_TW.svg)
 :::
 
 :::{#fig-bol-profileNE_TW}
-![Bolmen Subbasin North-East](../../fig/WQ_profile_BOL_BS-NE_TW.svg)
+![Bolmen Subbasin North-East](../../fig/svg/WQ_profile_BOL_BS-NE_TW.svg)
 :::
 
 :::{#fig-bol-profileW_TW}
-![Bolmen Subbasin West](../../fig/WQ_profile_BOL_BS-W_TW.svg)
+![Bolmen Subbasin West](../../fig/svg/WQ_profile_BOL_BS-W_TW.svg)
 :::
 
 :::{#fig-bol-profileE_TW}
-![Bolmen Subbasin East](../../fig/WQ_profile_BOL_BS-E_TW.svg)
+![Bolmen Subbasin East](../../fig/svg/WQ_profile_BOL_BS-E_TW.svg)
 :::
 
 :::{#fig-bol-profileS_TW}
-![Bolmen Subbasin South](../../fig/WQ_profile_BOL_BS-S_TW.svg)
+![Bolmen Subbasin South](../../fig/svg/WQ_profile_BOL_BS-S_TW.svg)
 :::
 
 :::
@@ -49,23 +49,23 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_pH}
-![Bolmen Subbasin North-West](../../fig/WQ_profile_BOL_BS-NW_pH.svg)
+![Bolmen Subbasin North-West](../../fig/svg/WQ_profile_BOL_BS-NW_pH.svg)
 :::
 
 :::{#fig-bol-profileNE_pH}
-![Bolmen Subbasin North-East](../../fig/WQ_profile_BOL_BS-NE_pH.svg)
+![Bolmen Subbasin North-East](../../fig/svg/WQ_profile_BOL_BS-NE_pH.svg)
 :::
 
 :::{#fig-bol-profileW_pH}
-![Bolmen Subbasin West](../../fig/WQ_profile_BOL_BS-W_pH.svg)
+![Bolmen Subbasin West](../../fig/svg/WQ_profile_BOL_BS-W_pH.svg)
 :::
 
 :::{#fig-bol-profileE_pH}
-![Bolmen Subbasin East](../../fig/WQ_profile_BOL_BS-E_pH.svg)
+![Bolmen Subbasin East](../../fig/svg/WQ_profile_BOL_BS-E_pH.svg)
 :::
 
 :::{#fig-bol-profileS_pH}
-![Bolmen Subbasin South](../../fig/WQ_profile_BOL_BS-S_pH.svg)
+![Bolmen Subbasin South](../../fig/svg/WQ_profile_BOL_BS-S_pH.svg)
 :::
 
 :::
@@ -75,23 +75,23 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_O2}
-![Bolmen Subbasin North-West](../../fig/WQ_profile_BOL_BS-NW_O2.svg)
+![Bolmen Subbasin North-West](../../fig/svg/WQ_profile_BOL_BS-NW_O2.svg)
 :::
 
 :::{#fig-bol-profileNE_O2}
-![Bolmen Subbasin North-East](../../fig/WQ_profile_BOL_BS-NE_O2.svg)
+![Bolmen Subbasin North-East](../../fig/svg/WQ_profile_BOL_BS-NE_O2.svg)
 :::
 
 :::{#fig-bol-profileW_O2}
-![Bolmen Subbasin West](../../fig/WQ_profile_BOL_BS-W_O2.svg)
+![Bolmen Subbasin West](../../fig/svg/WQ_profile_BOL_BS-W_O2.svg)
 :::
 
 :::{#fig-bol-profileE_O2}
-![Bolmen Subbasin East](../../fig/WQ_profile_BOL_BS-E_O2.svg)
+![Bolmen Subbasin East](../../fig/svg/WQ_profile_BOL_BS-E_O2.svg)
 :::
 
 :::{#fig-bol-profileS_O2}
-![Bolmen Subbasin South](../../fig/WQ_profile_BOL_BS-S_O2.svg)
+![Bolmen Subbasin South](../../fig/svg/WQ_profile_BOL_BS-S_O2.svg)
 :::
 
 :::
