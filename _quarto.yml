@@ -31,6 +31,24 @@ website:
           text: "Hydrology"
         - href: pages/bol/bol-waterquality.qmd
           text: "Waterquality"
+    - id: "Vombsjön"
+      title: "Vombsjön"
+      style: "docked"
+      search: true
+      contents:
+        - href: pages/vom/vom-main.qmd
+          text: "Vombsjön"
+        - href: pages/vom/vom-waterquality.qmd
+          text: "Waterquality"
+    - id: "Ringsjön"
+      title: "Ringsjön"
+      style: "docked"
+      search: true
+      contents:
+        - href: pages/rin/rin-main.qmd
+          text: "Ringsjön"
+        - href: pages/rin/rin-climate.qmd
+          text: "Climate"
 
 format:
   html:

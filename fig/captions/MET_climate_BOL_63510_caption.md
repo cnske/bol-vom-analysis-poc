@@ -1,0 +1,1 @@
+Climate diagram at station 63510 Ljungby A for the year 2025 (mean temperature: 8 °C and yearly precipitation: 486 mm) compared to the last 30 years (average yearly temperature: 7.1 °C and average yearly precipitation: 722 mm).

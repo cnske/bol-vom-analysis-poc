@@ -1,0 +1,64 @@
+---
+title: "Ringsjö - Climate"
+bibliography: ../references.bib
+
+lightbox: true
+---
+
+According to the Köppen-Geiger climate classification Ringsjön is located in the warm-summer humid continental climate zone (Dfb)  [@Jerue]. 
+
+:::{style="width: 95%; margin:0 auto;"}
+:::{#fig-rin-meteo-avg-vs-current}
+![](../../fig/svg/rin/MET_climate_RIN_53530.svg)
+{{< include ../../fig/caption/MET_climate_RIN_53530_caption.md >}}
+:::
+:::
+
+## Statistics
+
+Variations in daily precipitation sums are visualized in the following charts. Each chart represents a period of 10 years of observations.
+
+:::{layout="[[33,33,33]]"}
+
+:::{#fig-rin-met-hist_p-t0}
+![](../../fig/svg/rin/MET_hist_P_RIN_a10_t0.svg)
+{{< include ../../fig/caption/MET_hist_P_RIN_a10_t0_caption.md >}}
+:::
+
+:::{#fig-rin-met-hist_p-t10}
+![](../../fig/svg/rin/MET_hist_P_RIN_a10_t10.svg)
+{{< include ../../fig/caption/MET_hist_P_RIN_a10_t10_caption.md >}}
+:::
+
+:::{#fig-rin-met-hist_p-t20}
+![](../../fig/svg/rin/MET_hist_P_RIN_a10_t20.svg)
+{{< include ../../fig/caption/MET_hist_P_RIN_a10_t20_caption.md >}}
+:::
+
+:::
+
+Variations in average air temperature are visualized in the following charts. Each chart represents a period of 10 years of observations.
+
+:::{layout="[[33,33,33]]"}
+
+:::{#fig-rin-met-hist_t-t0}
+![](../../fig/svg/rin/MET_hist_T_RIN_a10_t0.svg)
+{{< include ../../fig/caption/MET_hist_T_RIN_a10_t0_caption.md >}}
+:::
+
+:::{#fig-rin-met-hist_t-t10}
+![](../../fig/svg/rin/MET_hist_T_RIN_a10_t10.svg)
+{{< include ../../fig/caption/MET_hist_T_RIN_a10_t10_caption.md >}}
+:::
+
+:::{#fig-bol-met-hist_t-t20}
+![](../../fig/svg/rin/MET_hist_T_RIN_a10_t20.svg)
+{{< include ../../fig/caption/MET_hist_T_RIN_a10_t20_caption.md >}}
+:::
+
+:::
+
+## References {.unlisted}
+
+:::{#refs}
+:::

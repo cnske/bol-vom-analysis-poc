@@ -24,7 +24,6 @@ Absorbance measurements of the epilimnion.
 :::{#fig-bol-profileNW_TW}
 ![Bolmen Subbasin North-West](../../fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg)
 
-fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg
 :::
 
 :::{#fig-bol-profileNE_TW}

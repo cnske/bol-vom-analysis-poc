@@ -1,0 +1,1 @@
+Climate diagram at station 53530 Hörby A for the year 2025 (mean temperature: 9.2 °C and yearly precipitation: 432 mm) compared to the last 30 years (average yearly temperature: 8.2 °C and average yearly precipitation: 709 mm).

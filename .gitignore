@@ -19,6 +19,7 @@ thumbs.db
 
 # Specific files
 testing.ipynb
+.env
 
 # Folders 
 fig/png/**

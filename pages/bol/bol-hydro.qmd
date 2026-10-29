@@ -9,7 +9,7 @@ bibliography: ../references.bib
 
 :::{.calout-important}
 
-This part is still under construction. Figures and information will follow here. 
+This section is still under construction. Charts and information will follow here. 
 :::
 
 
@@ -21,8 +21,12 @@ Waterlevel timeseries of Bolmen recorded at [GPS Location].
 
 ### Tributaries
 
-:::{#fig-bol-tributaryflow}
-{{< placeholder >}}
+:::{.calout-important}
 
-Timeseries plot of the tributary discharge to Bolmen recorded at [GPS Location].
+This section is still under construction. The charts currently displayed may contain incorrect data or may not include all the data.  
+:::
+
+:::{#fig-bol-tributaryflow}
+![](../../fig/svg/bol/WQ_discharge_BOL_a5.svg)
+{{< include ../../fig/caption/WQ_discharge_BOL_a5_caption.md >}}
 :::
