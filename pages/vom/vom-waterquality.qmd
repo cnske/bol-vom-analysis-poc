@@ -14,11 +14,11 @@ lightbox: true
 :::{#fig-vom-profile_01_TW}
 ![](../../fig/svg/vom/WQ_profile_VOM_01_TW.svg)
 
-{{< include ../../fig/caption/WQ_profile_VOM_01_TW_caption.md >}}
+{{< include ../../fig/captions/WQ_profile_VOM_01_TW_caption.md >}}
 :::
 
 :::{#fig-vom-profile_02_TW}
 ![](../../fig/svg/vom/WQ_profile_VOM_02_TW.svg)
 
-{{< include ../../fig/caption/WQ_profile_VOM_02_TW_caption.md >}}
+{{< include ../../fig/captions/WQ_profile_VOM_02_TW_caption.md >}}
 :::

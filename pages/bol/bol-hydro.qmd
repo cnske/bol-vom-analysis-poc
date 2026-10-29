@@ -27,6 +27,6 @@ This section is still under construction. The charts currently displayed may con
 :::
 
 :::{#fig-bol-tributaryflow}
-![](../../fig/svg/bol/WQ_discharge_BOL_a5.svg)
-{{< include ../../fig/caption/WQ_discharge_BOL_a5_caption.md >}}
+![](../../fig/svg/bol/WQ_discharge_BOL_a3.svg)
+{{< include ../../fig/captions/WQ_discharge_BOL_a3_caption.md >}}
 :::
