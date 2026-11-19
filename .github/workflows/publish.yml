@@ -49,6 +49,7 @@ jobs:
         run: |
           python src/queries/SITES.py
           jupyter execute src/queries/smhi_tmp.ipynb
+          ls -lh data/
 
       - name: Run Analysis Notebook
         run: |
