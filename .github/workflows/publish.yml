@@ -9,6 +9,10 @@ on:
 
   workflow_dispatch:
 
+env:
+  SITES_USER: ${{ secrets.SITES_USER }}
+  SITES_PW: ${{ secrets.SITES_PW }}
+
 # Grant permissions required to deploy to GitHub Pages
 permissions:
   contents: read
