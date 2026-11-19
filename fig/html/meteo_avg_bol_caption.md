@@ -1,1 +1,1 @@
-Average climate at Ljunbgy A (63510).    Average annual precipitation: 715.71.        Average anual temperature: 7.09.
+Average climate at Ljunbgy A (63510).    Average annual precipitation: 716.15 mm.        Average anual temperature: 7.09 °C.
