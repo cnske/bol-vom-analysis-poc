@@ -10,7 +10,10 @@ from dotenv import load_dotenv
 load_dotenv(".env")
 
 # Authentication
-meta, data = bootstrap.fromCredentials(os.getenv('SITES_USER'), os.getenv('SITES_PW'))
+meta, data = bootstrap.fromCredentials(
+    os.getenv('SITES_USER'), 
+    os.getenv('SITES_PW')
+)
 
 # Define station and sites of interest 
 BOL_Station = "https://meta.fieldsites.se/resources/stations/bolmen"
@@ -18,7 +21,8 @@ BOL_Site_Lake = "https://meta.fieldsites.se/resources/sites/bolmen-lake"
 BOL_Site_Catch = "https://meta.fieldsites.se/resources/sites/bolmen-catchment-forest"
 
 # Define dir where files should be stored and create if not exist
-out_dir = Path('../../data')
+root_dir = Path().resolve().parents[1]
+out_dir = root_dir / 'data'
 out_dir.mkdir(exist_ok=True)
 
 
