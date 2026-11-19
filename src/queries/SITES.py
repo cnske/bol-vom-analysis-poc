@@ -21,9 +21,8 @@ BOL_Site_Lake = "https://meta.fieldsites.se/resources/sites/bolmen-lake"
 BOL_Site_Catch = "https://meta.fieldsites.se/resources/sites/bolmen-catchment-forest"
 
 # Define dir where files should be stored and create if not exist
-root_dir = Path().resolve().parents[1]
-out_dir = root_dir / 'data'
-out_dir.mkdir(exist_ok=True)
+out_dir = Path(os.getenv('OUT_DIR'))
+out_dir.mkdir(parents=True, exist_ok=True)
 
 
 # Check if Site is not none and return

@@ -12,6 +12,7 @@ on:
 env:
   SITES_USER: ${{ secrets.SITES_USER }}
   SITES_PW: ${{ secrets.SITES_PW }}
+  OUT_DIR: ${{ github.workspace }}/data
 
 # Grant permissions required to deploy to GitHub Pages
 permissions:
@@ -49,7 +50,7 @@ jobs:
         run: |
           python src/queries/SITES.py
           jupyter execute src/queries/smhi_tmp.ipynb
-          ls -lh data/
+          ls -la "$OUT_DIR"
 
       - name: Run Analysis Notebook
         run: |
