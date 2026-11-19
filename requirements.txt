@@ -1,5 +1,6 @@
 jupyter
 pandas
 plotly
+pyarrow
 icoscp_core
 python-dotenv
