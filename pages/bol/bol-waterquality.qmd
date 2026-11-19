@@ -13,7 +13,7 @@ The current sampling for the epilimnion consist of analysis of the absorbance at
 ```{=html}
 <iframe src="../../fig/html/CHE_Epilimnio_ABS420_bol.html" width="100%" height="500px"></iframe> 
 ```
-{{< include ../../fig/captions/CHE_Epilimnio_ABS420_bol.md >}}
+{{< include ../../fig/captions/CHE_Epilimnio_ABS420_bol_caption.md >}}
 
 :::
 
@@ -26,34 +26,34 @@ The current sampling for the epilimnion consist of analysis of the absorbance at
 :::{#fig-bol-profileNW_TW}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_TW.svg)
 
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_TW.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_TW_caption.md >}}
 
 :::
 
 :::{#fig-bol-profileNE_TW}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg)
 
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_TW.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_TW_caption.md >}}
 
 :::
 
 :::{#fig-bol-profileW_TW}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-W_TW.svg)
 
-{{< include ../../fig/captions/WQ_profile_BOL_BS-W_TW.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_TW_caption.md >}}
 :::
 
 :::{#fig-bol-profileE_TW}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-E_TW.svg)
 
-{{< include ../../fig/captions/WQ_profile_BOL_BS-E_TW.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_TW_caption.md >}}
 
 :::
 
 :::{#fig-bol-profileS_TW}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-S_TW.svg)
 
-{{< include ../../fig/captions/WQ_profile_BOL_BS-S_TW.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_TW_caption.md >}}
 
 :::
 
@@ -66,27 +66,27 @@ The current sampling for the epilimnion consist of analysis of the absorbance at
 
 :::{#fig-bol-profileNW_pH}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_pH.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_pH.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_pH_caption.md >}}
 :::
 
 :::{#fig-bol-profileNE_pH}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_pH.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_pH.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_pH_caption.md >}}
 :::
 
 :::{#fig-bol-profileW_pH}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-W_pH.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-W_pH.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_pH_caption.md >}}
 :::
 
 :::{#fig-bol-profileE_pH}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-E_pH.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-E_pH.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_pH_caption.md >}}
 :::
 
 :::{#fig-bol-profileS_pH}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-S_pH.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-S_pH.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_pH_caption.md >}}
 :::
 
 :::
@@ -97,27 +97,27 @@ The current sampling for the epilimnion consist of analysis of the absorbance at
 
 :::{#fig-bol-profileNW_O2}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_O2.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_O2.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_O2_caption.md >}}
 :::
 
 :::{#fig-bol-profileNE_O2}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_O2.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_O2.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_O2_caption.md >}}
 :::
 
 :::{#fig-bol-profileW_O2}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-W_O2.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-W_O2.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_O2_caption.md >}}
 :::
 
 :::{#fig-bol-profileE_O2}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-E_O2.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-E_O2.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_O2_caption.md >}}
 :::
 
 :::{#fig-bol-profileS_O2}
 ![](../../fig/svg/bol/WQ_profile_BOL_BS-S_O2.svg)
-{{< include ../../fig/captions/WQ_profile_BOL_BS-S_O2.md >}}
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_O2_caption.md >}}
 :::
 
 :::
