@@ -45,4 +45,4 @@ for d in selected:
         print(f"  skip (exists): {d.filename}")
         continue
     path = data.save_to_folder(d, str(out_dir))
-    print(f"  saved: {path}")
+    print(f"  saved: {path} in {out_dir}" )
