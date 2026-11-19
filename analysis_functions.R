@@ -3,19 +3,8 @@
 
 packages <- c("here", "tidyverse", "scico", "arrow", "ggpmisc" )
 
-#library(base)
-#"nanoparquet", "multcomp", "EnvStats", "raster", "doBy", "readxl", "ggtext", "readtext", "svglite",
-
 install.packages(packages)
 lapply(packages, library, character.only=TRUE)
-
-
-# check if packages are used
-#used.functions <- NCmisc::list.functions.in.file(filename = "analysis_functions.R", alphabetic = FALSE) |> print()
-#used.packages <- used.functions |> names() |> grep(pattern = "package:", value = TRUE) |> gsub(pattern = "package:", replacement = "") |> print()
-#unused.packages <- packages[!(packages %in% used.packages)] |> print()
-
-
 
 
 here::i_am("analysis_functions.R")
@@ -34,6 +23,8 @@ pathcap <- paste0(here(), "/fig/captions/")
 
 # "Ljungby A" - 63510 - BOL
 # "Hörby A" - 53530 - RIN (and VOM)
+#       new Stations have to be added to functions as well
+
 
 #     ParameterID
 
@@ -48,8 +39,18 @@ pathcap <- paste0(here(), "/fig/captions/")
 # location: BOL_BS-W, VOM_02 ...
 # DF:       complete dataframe used for function
 # df:       dataframe used for plotting, a subset of DF
-# lastYear: end of last full Year
-# Year:     last full year
+# Year:     last full year, with YearStart and YearEnd
+# XXX:      could not find variable for assigning a Name/Character, 
+#           add Station/Site/Location to functions at case_when()
+
+
+
+YearEnd <- floor_date(Sys.time(), unit="year")
+YearStart <- YearEnd-years(1)
+Year <- format(YearStart, format="%Y")
+
+
+
 
 ###### climate_diagram() ###### 
 
@@ -60,11 +61,9 @@ climate_diagram <- function(filename, station_list)
                                col_select = c(TimeStamp, StationID, StationName, ParameterID, 
                                               ParameterName, Unit, Value))
   dfraw$Date <- as.Date((substring(dfraw$TimeStamp, 0, 10)), format="%Y-%m-%d")
-  lastYear <- floor_date(max(dfraw$Date), unit="year")
-  startYear <- as.Date(lastYear-years(1))
   
   
-  DF <- subset(dfraw, Date < lastYear & Date >= (lastYear-years(30))) 
+  DF <- subset(dfraw, Date < YearEnd & Date >= (YearEnd-years(30))) 
   DF$ParameterID <- as.factor(DF$ParameterID)
   DF$StationID <- as.factor(DF$StationID)
   DF$MonthYear <- as.factor(substring(DF$TimeStamp, 0, 7))
@@ -107,20 +106,18 @@ climate_diagram <- function(filename, station_list)
                     c("Month", "Temperature"))
    
    climatelist <- list(
-     setNames(data.frame(seq(startYear, by="month", length.out=12)), c("date")),
+     setNames(data.frame(seq(YearStart, by="month", length.out=12)), c("date")),
      setNames(data.frame(avgT$Temperature), c("avgTemperature")),
      setNames(data.frame(avgP$Precipitation), c("avgPrecipitation")),
      setNames(data.frame(tail(monthlyT$Temperature_m, n = 12)), c("Temperature")),
-     setNames(data.frame(tail(monthlyP$Precipitation_m, n = 12)), c("Precipitation"))
-   )
+     setNames(data.frame(tail(monthlyP$Precipitation_m, n = 12)), c("Precipitation"))  )
    dfclimate <- list_cbind(climatelist, name_repair = "universal")
    
    avgJT <- round(mean(dfclimate$avgTemperature), digits=1)
    avgJP <- round(sum(dfclimate$avgPrecipitation))
    JT <- round(mean(dfclimate$Temperature), digits=1)
    JP <- round(sum(dfclimate$Precipitation))
-   Year <- format(startYear, format="%Y")
-   
+
    ggplot(dfclimate, aes(x=date))+
      geom_bar(aes(y= Precipitation/2, fill="Precipitation"), stat="identity")  +
      geom_bar(aes(y= avgPrecipitation/2, fill="average Precipitation", ), color="grey15", linetype=5, stat="identity")+
@@ -133,7 +130,6 @@ climate_diagram <- function(filename, station_list)
                         expression("Average Monthly Temperature  (°C)") ) +
      scale_color_manual("", values=c('Temperature'='tomato3', 'average Temperature'='grey30'))+
      scale_fill_manual("", values=c('Precipitation'="dodgerblue2", "average Precipitation"="transparent")) +
-     labs(title=paste(Station, df$StationName[1], "in", Year))+
      theme_bw()+
      theme(text=element_text(size=12),
            axis.text.x = element_text(angle=0, hjust=0.5),
@@ -180,16 +176,15 @@ Precipitation_distribution <- function(a, filename, station_list)
                                col_select = c(TimeStamp, StationID, StationName, ParameterID, 
                                               ParameterName, Unit, Value))
   dfraw$Date <- as.Date((substring(dfraw$TimeStamp, 0, 10)), format="%Y-%m-%d")
-  lastYear <- floor_date(max(dfraw$Date), unit="year")
+  #lastYear <- floor_date(max(dfraw$Date), unit="year")
   
   
-  DF <- subset(dfraw, Date < lastYear & Date >= (lastYear-years(30)) & ParameterID == "7") 
+  DF <- subset(dfraw, Date < YearEnd & Date >= (YearEnd-years(30)) & ParameterID == "7") 
   DF$StationID <- as.factor(DF$StationID)
   
   for (Station in station_list)
   {  
     DFstation <- subset(DF, StationID == Station)
-    
     
     SiteName <- case_when(
       Station == "63510"   ~ "BOL",    
@@ -223,7 +218,6 @@ Precipitation_distribution <- function(a, filename, station_list)
       rainsum <- sum(df$Precipitation_d, na.rm=TRUE)
       rainratio <- round(x=((raindays / nrow(df))*100), digits=0)
       rainmax <- max(df$Precipitation_d, na.rm=TRUE)
-      
       
       
       ggplot(subset(df, Precipitation_d>0), aes(x=Precipitation_d )  )+
@@ -285,9 +279,8 @@ Temperature_distribution <- function(a, filename, station_list)
                                col_select = c(TimeStamp, StationID, StationName, ParameterID, 
                                               ParameterName, Unit, Value))
   dfraw$Date <- as.Date((substring(dfraw$TimeStamp, 0, 10)), format="%Y-%m-%d")
-  lastYear <- floor_date(max(dfraw$Date), unit="year")
-  
-  DF <- subset(dfraw, Date < lastYear & Date >= (lastYear-years(30)) & ParameterID == "1") 
+
+  DF <- subset(dfraw, Date < YearEnd & Date >= (YearEnd-years(30)) & ParameterID == "1") 
   DF$StationID <- as.factor(DF$StationID)
   
   
@@ -399,8 +392,6 @@ depth_profile <- function(Site, parameter_list)
   DF <- mutate(DF, date=substring(DF$TIMESTAMP, 0, 10) )
   DF$location <- as.factor(DF$location)
   DF$date <- as.Date( DF$date, format="%Y-%m-%d")
-  lastYear <- floor_date(max(DF$date), unit="year")
-  Year <- format((lastYear - years(1)), format="%Y")
   
   
   estimate_val_by_date <- function(target_date, target_depth) {
@@ -418,7 +409,6 @@ depth_profile <- function(Site, parameter_list)
   
   for (parameter in parameter_list)
   {
-    #plot settings for each parameter
     
     Legendtitel <- case_when(
       parameter == "TW"     ~ "Water\ntemperature\n(°C)",
@@ -431,8 +421,7 @@ depth_profile <- function(Site, parameter_list)
       parameter == "O2SAT"  ~ "Oxygen\nsaturation\n(%)",  
       parameter == "O2"     ~ "Dissolved\nOxygen\n(mg L-1)",  
       parameter == "FDOM"   ~ "Fluorescent\ndissolved\norganic\nmatter\n(µg L-1)",  
-      TRUE ~ "unknown parameter"
-    )
+      TRUE ~ "unknown parameter" )
     
     Palette <- case_when(
       parameter == "TW"     ~ "managua",
@@ -440,8 +429,7 @@ depth_profile <- function(Site, parameter_list)
       parameter == "O2"     ~ "nuuk", 
       parameter == "FDOM"   ~ "bamako", 
       parameter == "CHLF"   ~ "bamako",   
-      TRUE ~ "imola" 
-    )
+      TRUE ~ "imola"  )
     
     ParameterName <- case_when(
       parameter == "TW"     ~ "Water temperature (°C)",
@@ -454,19 +442,21 @@ depth_profile <- function(Site, parameter_list)
       parameter == "O2SAT"  ~ "Oxygen saturation (%)",  
       parameter == "O2"     ~ "Dissolved Oxygen (mg L-1)",  
       parameter == "FDOM"   ~ "Fluorescent dissolved organic matter (µg L-1)",  
-      TRUE ~ "unknown parameter"
-    )
+      TRUE ~ "unknown parameter" )
+    
     Limits <- c(floor(min(DF[, parameter])), ceiling(max(DF[, parameter])))
     
     
     for (element in location_list)
     {
       #subset: one location, last full year, one parameter
-      df <- subset(DF, location==element & date >= (lastYear-years(1))  &  date < lastYear) 
+      df <- subset(DF, location==element & date >= YearStart  &  date < YearEnd) 
       df$depth <- c(df$D_Water)
       df$value <-  c(df[, parameter])
+      dfclean <- df[nrow(date)>1, ]
       
-      interp_depth <- max(df$depth[df$depth != max(df$depth)])
+      interp_depth <- round(max(df$depth), digits=1)-0.5
+      #interp_depth <- max(df$depth[df$depth != max(df$depth)])
       #max depth on the second deepest sample day?
       #deepestday <- df$date[which.max(df$depth)]
       #interp_depth <- max( df$depth[df$date != deepestday] )  
@@ -476,6 +466,20 @@ depth_profile <- function(Site, parameter_list)
         str_sub(df[1, "location"], end=3) == "RIN"   ~ pathrin,
         str_sub(df[1, "location"], end=3) == "VOM"   ~ pathvom,
         TRUE ~ pathfig )
+      
+      SubSiteName <- case_when(
+        element == "BOL_BS-NW" ~ "Bolmen Subbasin North-West",
+        element == "BOL_BS-NE" ~ "Bolmen Subbasin North-East",
+        element == "BOL_BS-W" ~ "Bolmen Subbasin West",
+        element == "BOL_BS-E" ~ "Bolmen Subbasin East",
+        element == "BOL_BS-S" ~ "Bolmen Subbasin South",
+        element == "VOM-01" ~ "Vombsjön Site 1",
+        element == "VOM-02" ~ "Vombsjön Site 2",
+        element == "VOM-03" ~ "Vombsjön Site 3",
+        element == "VOM-04" ~ "Vombsjön Site 4",
+        element == "VOM-05" ~ "Vombsjön Site 5",
+        element == "VOM-06" ~ "Vombsjön Site 6",
+        TRUE ~ "XXX"  )
       
       
       val_interp_depth <- crossing(
@@ -507,7 +511,7 @@ depth_profile <- function(Site, parameter_list)
              path=Path, height = 6, width = 7, dpi="retina" )
       
       
-      caption <- paste("Depth profile of", ParameterName, "at location", Site, "in", Year)
+      caption <- paste("Depth profile of", ParameterName, "at", SubSiteName, "in", Year)
       writeLines(caption, paste0(pathcap, "WQ_profile_", element, "_", parameter, "_caption.md" ))
       
     } 
@@ -528,222 +532,25 @@ parameter_list <- c( "TW", "O2", "O2SAT", "pH")
 
 depth_profile("BOL", parameter_list)
 
-#depth_profile("VOM", parameter_list) #still doesnt work
 
+# COMMENT
+# Problems with the interpolation of depth, as it needs two values to use approx()
+# how to define depth for interpolation interp_depth?
+# second deepest depth:   interp_depth <- max(df$depth[df$depth != max(df$depth)])
+# adding buffer:    interp_depth <- round(max(df$depth), digits=1)-0.5
+# second deepest day:   interp_depth <- max( df$depth[df$date != deepestday] )
+# especially tricky for VOM because of changing water levels
 
+# COMMENT
+# Problems in the interpolation, if there is only one measurement for one specific date
+# needs two values per date to interpolate (approx())
+# cleaning up raw data or dropping rows in df where date is not a duplicate
+# dfclean <- df[duplicated(df$date) | duplicated(df$date, fromLast = TRUE), ]
 
-
-
-###### depth_measurements_continuous() ######
-
-
-#interpolates over every date and does not only show timeframes where it was measured
-depth_profile_continuous <- function(a, Site, parameter_list)
-{
-  df_list <- list()
-  location_list <- list()
-  
-  file_list <- list.files(pattern=paste0("SITES_SONDE-PROF_", Site), path = pathdata)
-  
-  for (file in file_list) {
-    skip <- which((readLines(con= paste0(pathdata, file)))=="####")
-    df <- read.csv(paste0(pathdata, file), skip = skip, sep=",", header = T, dec=".", stringsAsFactors = T)
-    LocationName <- str_sub(file, start = 18, end=-36)
-    location_list <- append(location_list, list(LocationName))
-    df <- mutate(df, location = LocationName)
-    df_list <- append(df_list, list(df))
-    assign(paste0("df_", LocationName), df)
-  }  
-  
-  DF <- bind_rows(df_list)
-  DF <- mutate(DF, date=substring(DF$TIMESTAMP, 0, 10) )
-  DF$location <- as.factor(DF$location)
-  DF$date <- as.Date( DF$date, format="%Y-%m-%d")
-  lastYear <- floor_date(max(DF$date), unit="year")
-  DF$year <- factor(format(DF$date, "%Y"))  
-  
-  estimate_val_by_date <- function(target_date, target_depth) {
-    data_for_date <- df %>%        
-      filter(date == target_date) %>%
-      arrange(depth)
-    approx(data_for_date$depth, data_for_date$value, xout = target_depth, ties = min)$y }
-  
-  estimate_val_by_depth <- function(target_depth, target_date) {
-    data_for_depth <- val_interp_depth %>% 
-      filter(depth == target_depth) %>%
-      arrange(date)
-    approx(data_for_depth$date, data_for_depth$value, xout = target_date)$y }
-  
-  
-  for (parameter in parameter_list)
-  {
-    #plot settings for each parameter
-    
-    Legendtitel <- case_when(
-      parameter == "TW"     ~ "Water\ntemperature\n(°C)",
-      parameter == "EC"     ~ "Electrical\nconductivity\n(µS cm-1)",
-      parameter == "SCOND"  ~ "Specific\nConductivity\nat 25°C\n(µS cm-1)",
-      parameter == "pH"     ~ "pH",      
-      parameter == "ORP"    ~ "Oxidation\nReduction\nPotential\n(mV)",      
-      parameter == "TURBF"  ~ "Turbidity\n(FNU)",      
-      parameter == "CHLF"   ~ "Chlorophyll\nFluorescence\n(µg L-1)",  
-      parameter == "O2SAT"  ~ "Oxygen\nsaturation\n(%)",  
-      parameter == "O2"     ~ "Dissolved\nOxygen\n(mg L-1)",  
-      parameter == "FDOM"   ~ "Fluorescent\ndissolved\norganic\nmatter\n(µg L-1)",  
-      TRUE ~ "unknown parameter"
-    )
-    
-    Palette <- case_when(
-      parameter == "TW"     ~ "managua",
-      parameter == "O2SAT"  ~ "nuuk", 
-      parameter == "O2"     ~ "nuuk", 
-      parameter == "FDOM"   ~ "bamako", 
-      parameter == "CHLF"   ~ "bamako",   
-      TRUE ~ "imola" 
-    )
-    
-    ParameterName <- case_when(
-      parameter == "TW"     ~ "Water temperature (°C)",
-      parameter == "EC"     ~ "Electrical conductivity (µS cm-1)",
-      parameter == "SCOND"  ~ "Specific Conductivity at 25°C (µS cm-1)",
-      parameter == "pH"     ~ "pH",      
-      parameter == "ORP"    ~ "Oxidation Reduction Potential (mV)",      
-      parameter == "TURBF"  ~ "Turbidity (FNU)",      
-      parameter == "CHLF"   ~ "Chlorophyll Fluorescence (µg L-1)",  
-      parameter == "O2SAT"  ~ "Oxygen saturation (%)",  
-      parameter == "O2"     ~ "Dissolved Oxygen (mg L-1)",  
-      parameter == "FDOM"   ~ "Fluorescent dissolved organic matter (µg L-1)",  
-      TRUE ~ "unknown parameter"
-    )
-    Limits <- c(floor(min(DF[, parameter])), ceiling(max(DF[, parameter])))
-    
-    
-    for (element in location_list)
-    {
-      #subset: one location, last a years, one parameter
-      df <- subset(DF, location==element & date >= (lastYear-years(a))  &  date < lastYear) 
-      df$depth <- c(df$D_Water)
-      df$value <-  c(df[, parameter])
-      
-      interp_depth <- max(df$depth)-0.5      #!!!!!!
-      
-      Path <- case_when(
-        str_sub(df[1, "location"], end=3) == "BOL"   ~ pathbol,    
-        str_sub(df[1, "location"], end=3) == "RIN"   ~ pathrin,
-        str_sub(df[1, "location"], end=3) == "VOM"   ~ pathvom,
-        TRUE ~ pathfig )
-      
-      
-      val_interp_depth <- crossing(
-        tibble(date = unique(df$date)), 
-        tibble(depth = seq(1, interp_depth, by=0.1)) 
-      ) %>%
-        group_by(date) %>%
-        mutate(value = estimate_val_by_date(date[1], depth)) 
-      
-      val_raster <- crossing(
-        tibble(date = seq(ymd(min(df$date)), ymd(max(df$date)), by = 1)),
-        tibble(depth = unique(val_interp_depth$depth))
-      ) %>%
-        group_by(depth) %>%
-        mutate(value = estimate_val_by_depth(depth[1], date))
-      
-      val_raster$year <- str_sub(val_raster$date, end=4)      
-      
-      ggplot(val_raster, aes(date, depth, fill = value)) +
-        geom_raster() +
-        scale_y_reverse() +
-        scale_x_date(date_breaks="1 month", date_labels="%b")+
-        scale_fill_scico(palette = Palette, direction=-1, na.value = "transparent", limits = Limits) + 
-        coord_cartesian(expand = FALSE)+
-        labs(y = "depth in m", fill = Legendtitel )+
-        facet_grid(col = vars(year),  scale="free_x", space="free_x")+
-        theme(axis.title.x=element_blank())
-      
-      ggsave(filename = paste0("WQ_profile_", element, "_", parameter, "continuous.svg" ), 
-             path=Path, height = 6, width = 10, dpi="retina" )
-      
-      
-      caption <- paste("Depth profile of", ParameterName, "at location", Site, "in", Year)
-      writeLines(caption, paste0(pathcap, "WQ_profile_", element, "_", parameter, "continuous_caption.md" ))
-      
-    } 
-    
-  } 
-  
-  return(print(file_list))
-  
-}
-
-#does not work yet
-depth_measurements_LakeMonitoR <- function() {
-  Site <- "BOL"
-  parameter_list <- c( "TW", "O2", "O2SAT", "pH")
-  #only for last full year or for all data (grouped by year)
-  
-  
-  if(!require(remotes)){install.packages("remotes")}  #install if needed
-  remotes::install_github("leppott/LakeMonitoR")
-  library(LakeMonitoR)
-  
-  
-  df_list <- list()
-  location_list <- list()
-  
-  file_list <- list.files(pattern=paste0("SITES_SONDE-PROF_", Site), path = pathdata)
-  
-  for (file in file_list) {
-    skip <- which((readLines(con= paste0(pathdata, file)))=="####")
-    df <- read.csv(paste0(pathdata, file), skip = skip, sep=",", header = T, dec=".", stringsAsFactors = T)
-    LocationName <- str_sub(file, start = 18, end=-36)
-    location_list <- append(location_list, list(LocationName))
-    df <- mutate(df, location = LocationName)
-    df_list <- append(df_list, list(df))
-    assign(paste0("df_", LocationName), df)
-  }  
-  
-  DF <- bind_rows(df_list)
-  DF <- mutate(DF, date=substring(DF$TIMESTAMP, 0, 10) )
-  DF$location <- as.factor(DF$location)
-  DF$date <- as_datetime( DF$TIMESTAMP)
-  lastYear <- floor_date(max(DF$date), unit="year")
-  
-  element <- "BOL_BS-E"
-  
-  df <- subset(DF, location==element & date >= (lastYear-years(1))  &  date < lastYear) 
-  df$depth <- c(df$D_Water)
-  
-  
-  # Data (Test Lake)
-  data         <- df
-  
-  # Column Names
-  col_datetime <- "date"
-  col_depth    <- "depth"
-  col_measure  <- "TW"
-  
-  # Plot Labels
-  lab_datetime <- "Date Time"
-  lab_depth    <- "Depth (m)"
-  lab_measure  <- "Temperature (F)"
-  lab_title    <- "Test Lake"
-  line_val     <- 2
-  
-  
-  # Create Plot
-  p_hm <- plot_heatmap(data = data
-                       , col_datetime = col_datetime
-                       , col_depth = col_depth
-                       , col_measure = col_measure
-                       , lab_datetime = lab_datetime
-                       , lab_depth = lab_depth
-                       , lab_measure = lab_measure
-                       , lab_title = lab_title
-                       , contours = TRUE)
-  
-  # Print Plot
-  print(p_hm)
-}
+# COMMENT
+# tried different ways to plot all profile data across the years
+# problems with interpolation in winter
+# tried package LakeMonitoR with function plot_heatmap()
 
 
 
@@ -774,13 +581,12 @@ discharge <- function(Site, a)
   DF$date <- as.Date( DF$date, format="%Y-%m-%d")
   DF$year <- factor(format(DF$date, "%Y"))
   DF$doy <- as.Date(yday(DF$date))
-  lastYear <- floor_date(max(DF$date), unit="year")
-  
+
   DF <- DF %>% mutate(LocationName = case_when(  
     location == "IN-LIL" ~ "Lillån",
     location == "IN-ONN" ~ "Önnekvarn",
     location == "IN-STO" ~ "Storån",
-    TRUE ~ "unknown Location" ))
+    TRUE ~ "XXX" ))
   
   Path <- case_when(
     Site == "BOL"   ~ pathbol,    
@@ -808,12 +614,8 @@ discharge <- function(Site, a)
 }
 
 
-#a      windowlength, for how many years
-#Site   "BOL", "VOM", "RIN" (determines what files are used)
-
-#LocationName-variable set for Lillån (IN-LIL), Önnekvarn (IN-ONN), Storån (IN-STO)
-#add new LocationName to function for additional locations
-
+# a      windowlength, for how many years
+# Site   "BOL", "VOM", "RIN" (determines what files are used)
 
 a <- 3
 Site <- "BOL"

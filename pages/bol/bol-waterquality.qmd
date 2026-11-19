@@ -10,8 +10,10 @@ lightbox: true
 The current sampling for the epilimnion consist of analysis of the absorbance at differnt wavelength. 
 
 :::{#fig-bol-epi-abs}
-{{< placeholder >}}
-Absorbance measurements of the epilimnion. 
+```{=html}
+<iframe src="../../fig/html/CHE_Epilimnio_ABS420_bol.html" width="100%" height="500px"></iframe> 
+```
+{{< include ../../fig/captions/CHE_Epilimnio_ABS420_bol.md >}}
 
 :::
 
@@ -22,24 +24,37 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_TW}
-![Bolmen Subbasin North-West](../../fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_TW.svg)
+
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_TW.md >}}
 
 :::
 
 :::{#fig-bol-profileNE_TW}
-![Bolmen Subbasin North-East](../../fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_TW.svg)
+
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_TW.md >}}
+
 :::
 
 :::{#fig-bol-profileW_TW}
-![Bolmen Subbasin West](../../fig/svg/bol/WQ_profile_BOL_BS-W_TW.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-W_TW.svg)
+
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_TW.md >}}
 :::
 
 :::{#fig-bol-profileE_TW}
-![Bolmen Subbasin East](../../fig/svg/bol/WQ_profile_BOL_BS-E_TW.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-E_TW.svg)
+
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_TW.md >}}
+
 :::
 
 :::{#fig-bol-profileS_TW}
-![Bolmen Subbasin South](../../fig/svg/bol/WQ_profile_BOL_BS-S_TW.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-S_TW.svg)
+
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_TW.md >}}
+
 :::
 
 :::
@@ -50,23 +65,28 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_pH}
-![Bolmen Subbasin North-West](../../fig/svg/bol/WQ_profile_BOL_BS-NW_pH.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_pH.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_pH.md >}}
 :::
 
 :::{#fig-bol-profileNE_pH}
-![Bolmen Subbasin North-East](../../fig/svg/bol/WQ_profile_BOL_BS-NE_pH.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_pH.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_pH.md >}}
 :::
 
 :::{#fig-bol-profileW_pH}
-![Bolmen Subbasin West](../../fig/svg/bol/WQ_profile_BOL_BS-W_pH.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-W_pH.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_pH.md >}}
 :::
 
 :::{#fig-bol-profileE_pH}
-![Bolmen Subbasin East](../../fig/svg/bol/WQ_profile_BOL_BS-E_pH.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-E_pH.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_pH.md >}}
 :::
 
 :::{#fig-bol-profileS_pH}
-![Bolmen Subbasin South](../../fig/svg/bol/WQ_profile_BOL_BS-S_pH.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-S_pH.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_pH.md >}}
 :::
 
 :::
@@ -76,23 +96,28 @@ Absorbance measurements of the epilimnion.
 :::{layout="[[45,45], [45,45], [-22.5, 45, -22.5]]"}
 
 :::{#fig-bol-profileNW_O2}
-![Bolmen Subbasin North-West](../../fig/svg/bol/WQ_profile_BOL_BS-NW_O2.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NW_O2.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NW_O2.md >}}
 :::
 
 :::{#fig-bol-profileNE_O2}
-![Bolmen Subbasin North-East](../../fig/svg/bol/WQ_profile_BOL_BS-NE_O2.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-NE_O2.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-NE_O2.md >}}
 :::
 
 :::{#fig-bol-profileW_O2}
-![Bolmen Subbasin West](../../fig/svg/bol/WQ_profile_BOL_BS-W_O2.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-W_O2.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-W_O2.md >}}
 :::
 
 :::{#fig-bol-profileE_O2}
-![Bolmen Subbasin East](../../fig/svg/bol/WQ_profile_BOL_BS-E_O2.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-E_O2.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-E_O2.md >}}
 :::
 
 :::{#fig-bol-profileS_O2}
-![Bolmen Subbasin South](../../fig/svg/bol/WQ_profile_BOL_BS-S_O2.svg)
+![](../../fig/svg/bol/WQ_profile_BOL_BS-S_O2.svg)
+{{< include ../../fig/captions/WQ_profile_BOL_BS-S_O2.md >}}
 :::
 
 :::

@@ -1,0 +1,1 @@
+Absorbance at 420 nm at all profiling stations

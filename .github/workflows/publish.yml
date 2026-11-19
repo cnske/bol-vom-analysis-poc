@@ -41,10 +41,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run fetch queries
+        run: |
+          python src/queries/SITES.py
+          jupyter execute src/queries/smhi_tmp.ipynb
+
       - name: Run Analysis Notebook
         run: |
-          jupyter execute src/notebooks/analysis_rin.ipynb
           jupyter execute src/notebooks/analysis_bol.ipynb
+
+      #   jupyter execute src/notebooks/analysis_rin.ipynb
 
       #      - name: Set up R
       #        uses: r-lib/actions/setup-r@v2

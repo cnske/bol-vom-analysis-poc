@@ -38,6 +38,7 @@ The following plots visualize the distribution of daily precipitation grouped in
 
 :::
 
+
 Variations in daily air temperatures are visualized in the following plots, which are grouped in ten year intervals. 
 
 :::{layout="[[33,33,33]]"}
